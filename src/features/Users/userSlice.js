@@ -21,9 +21,10 @@ export const register = createAsyncThunk(
       return await userService.register(userData);
     } catch (err) {
       const message =
-        (err.response && err.response.data && err.response.data.message) ||
-        err.message ||
-        err.toString();
+        err.response && err.response.data && err.response.data.message
+          ? err.response.data.message
+          : err.message || "An error occurred";
+
       return thunkAPI.rejectWithValue(message);
     }
   }

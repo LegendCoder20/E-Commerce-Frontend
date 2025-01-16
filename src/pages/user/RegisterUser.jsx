@@ -1,7 +1,8 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import websiteLogo from "../../../public/Website Main Logo Transparent.png";
 import {useSelector, useDispatch} from "react-redux";
 import {register, reset} from "../../features/Users/userSlice";
+import {toast} from "react-toastify";
 
 function RegisterUser() {
   const [userFormData, setUserFormData] = useState({
@@ -18,6 +19,7 @@ function RegisterUser() {
     (state) => state.user
   );
 
+  // Input Handler
   const onChange = (e) => {
     setUserFormData((prevState) => ({
       ...prevState,
@@ -25,10 +27,28 @@ function RegisterUser() {
     }));
   };
 
+  // Check If User Already Exists
+  useEffect(() => {
+    if (isError && message) {
+      toast.error(message);
+    }
+    if (isSuccess || user) {
+      toast.success("Token Checked Automatically Loggin In  ");
+    }
+
+    dispatch(reset());
+  }, [user, isError, message, isSuccess, dispatch]);
+
+  // REGISTER LOGIC
   const registerUser = (e) => {
     e.preventDefault();
+
+    if (isError) {
+      toast.error(message);
+      return;
+    }
     if (password !== cpassword) {
-      console.log("Passwords Doesn't Match");
+      toast.error("Passwords Doesn't Match");
     } else {
       const userData = {
         name,
@@ -38,6 +58,7 @@ function RegisterUser() {
       };
 
       dispatch(register(userData));
+      console.log("User Registered Successfully");
     }
   };
 

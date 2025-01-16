@@ -9,6 +9,7 @@ const register = async (userData) => {
   if (response.data) {
     localStorage.setItem("User", JSON.stringify(response.data));
   }
+
   return response.data;
 };
 
