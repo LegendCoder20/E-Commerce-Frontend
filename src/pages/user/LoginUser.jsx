@@ -1,25 +1,21 @@
 import React, {useState, useEffect} from "react";
 import websiteLogo from "../../../public/Website Main Logo Transparent.png";
+import {login, reset} from "../../features/Users/userSlice";
 import {useSelector, useDispatch} from "react-redux";
-import {register, reset} from "../../features/Users/userSlice";
 import {toast} from "react-toastify";
 
-function RegisterUser() {
+function LoginUser() {
   const [userFormData, setUserFormData] = useState({
-    name: "",
-    phone: "",
     email: "",
     password: "",
-    cpassword: "",
   });
-  const {name, phone, email, password, cpassword} = userFormData;
 
+  const {email, password} = userFormData;
   const dispatch = useDispatch();
-  const {user, isSuccess, isError, message} = useSelector(
+  const {user, isError, isSuccess, message} = useSelector(
     (state) => state.user
   );
 
-  // Input Handler
   const onChange = (e) => {
     setUserFormData((prevState) => ({
       ...prevState,
@@ -27,7 +23,6 @@ function RegisterUser() {
     }));
   };
 
-  // Check If User Already Exists
   useEffect(() => {
     if (isError && message) {
       toast.error(message);
@@ -39,27 +34,14 @@ function RegisterUser() {
     dispatch(reset());
   }, [user, isError, message, isSuccess, dispatch]);
 
-  // REGISTER LOGIC
-  const registerUser = (e) => {
+  const loginUser = (e) => {
     e.preventDefault();
-
-    if (isError) {
-      toast.error(message);
-      return;
-    }
-    if (password !== cpassword) {
-      toast.error("Passwords Doesn't Match");
-    } else {
-      const userData = {
-        name,
-        phone,
-        email,
-        password: password,
-      };
-
-      dispatch(register(userData));
-      console.log("User Registered Successfully");
-    }
+    const userData = {
+      email,
+      password,
+    };
+    dispatch(login(userData));
+    console.log("User Logged In Successfully");
   };
 
   return (
@@ -78,7 +60,7 @@ function RegisterUser() {
         <div className="shadow-2xl hover:shadow-[0_4px_15px_rgba(0,0,0,0.3)] rounded-xl w-4/5 max-w-4xl flex items-stretch transform transition-transform duration-300 ease-in-out hover:scale-105">
           {/* Logo Section */}
           <div className="w-1/2 flex justify-center items-center flex-col bg-white bg-opacity-40 backdrop-blur-md rounded-tl-xl rounded-bl-xl">
-            <img src={websiteLogo} alt="Website Logo" className="h-96 w-auto" />
+            <img src={websiteLogo} alt="Website Logo" className="h-60 w-auto" />
             <h1 className="text-4xl">
               <b>E-Commerce Store</b>
             </h1>
@@ -87,45 +69,9 @@ function RegisterUser() {
           {/* Form Section */}
           <div className="w-1/2 p-8 flex flex-col justify-center bg-white rounded-tr-xl rounded-br-xl ">
             <h2 className="text-center text-2xl font-bold text-black mb-6 rounded-lg pt-1 pb-2">
-              Create New Account
+              Log In into Existing Account
             </h2>
-            <form method="POST" className="space-y-4" onSubmit={registerUser}>
-              <div>
-                <label
-                  htmlFor="username"
-                  className="block text-sm font-medium text-black"
-                >
-                  Username
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  value={name}
-                  className="rounded-lg bg-gray-50 border text-gray-900 text-sm w-full p-2.5"
-                  placeholder="eg. Aryan Manjarekar"
-                  onChange={onChange}
-                  required
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="phone"
-                  className="block text-sm font-medium text-black"
-                >
-                  Phone Number
-                </label>
-                <input
-                  type="number"
-                  name="phone"
-                  id="phone"
-                  className="rounded-lg bg-gray-50 border text-gray-900 text-sm w-full p-2.5"
-                  onChange={onChange}
-                  required
-                />
-              </div>
-
+            <form method="POST" className="space-y-4" onSubmit={loginUser}>
               <div>
                 <label
                   htmlFor="email"
@@ -161,28 +107,11 @@ function RegisterUser() {
               </div>
 
               <div>
-                <label
-                  htmlFor="cpassword"
-                  className="block text-sm font-medium text-black"
-                >
-                  Confirm Password
-                </label>
-                <input
-                  type="password"
-                  name="cpassword"
-                  id="cpassword"
-                  className="rounded-lg bg-gray-50 border text-gray-900 text-sm w-full p-2.5"
-                  onChange={onChange}
-                  required
-                />
-              </div>
-
-              <div>
                 <button
                   type="submit"
                   className="w-full rounded-md bg-blue-600 hover:bg-blue-700 text-white font-bold py-2"
                 >
-                  Register
+                  Login
                 </button>
               </div>
             </form>
@@ -193,4 +122,4 @@ function RegisterUser() {
   );
 }
 
-export default RegisterUser;
+export default LoginUser;

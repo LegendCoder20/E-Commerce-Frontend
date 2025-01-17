@@ -23,13 +23,31 @@ export const register = createAsyncThunk(
       const message =
         err.response && err.response.data && err.response.data.message
           ? err.response.data.message
-          : err.message || "An error occurred";
+          : err.message || "An error occurred in User Register";
 
       return thunkAPI.rejectWithValue(message);
     }
   }
 );
 //🟨REGISTER USER FEATURE🟨//
+
+//🟩LOGIN USER FEATURE🟩//
+export const login = createAsyncThunk(
+  "/user/login",
+  async (userData, thunkAPI) => {
+    try {
+      return await userService.login(userData);
+    } catch (err) {
+      const message =
+        err.response && err.response.data && err.response.data.message
+          ? err.response.data.message
+          : err.message || "An Error Occured in User Login";
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+//🟩LOGIN USER FEATURE🟩//
 
 //// REDUX ////
 
@@ -68,7 +86,10 @@ export const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    const asyncActions = [{action: register, field: "user"}];
+    const asyncActions = [
+      {action: register, field: "user"},
+      {action: login, field: "user"},
+    ];
 
     asyncActions.forEach(({action, field}) => {
       builder
