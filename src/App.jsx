@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 // Importing Components
 import RegisterUser from "./pages/user/RegisterUser";
 import LoginUser from "./pages/user/LoginUser";
+import RegisterSeller from "./pages/seller/RegisterSeller";
 
 function App() {
   return (
@@ -12,16 +13,20 @@ function App() {
       <Router>
         <ToastContainer></ToastContainer>
         <Routes>
-          {/*🟡 Register */}
+          {/*🟡Register User🟡*/}
           <Route
             path="/registerUser"
             element={<RegisterUser></RegisterUser>}
           ></Route>
-          {/* Register */}
 
-          {/*🟡 Login */}
+          {/*🟡Login User🟡*/}
           <Route path="/loginUser" element={<LoginUser></LoginUser>}></Route>
-          {/* Login */}
+
+          {/*🟡Register Seller🟡*/}
+          <Route
+            path="/registerSeller"
+            element={<RegisterSeller></RegisterSeller>}
+          ></Route>
         </Routes>
       </Router>
     </>

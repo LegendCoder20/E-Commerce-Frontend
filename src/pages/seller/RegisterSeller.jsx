@@ -1,51 +1,65 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import {toast} from "react-toastify";
 import {Link} from "react-router-dom";
 
 //////////////////////////////////////////
-import {register, reset} from "../../features/Users/userSlice";
+import {register, reset} from "../../features/Sellers/sellerSlice";
 import websiteLogo from "../../../public/Website Main Logo Transparent.png";
 
-function RegisterUser() {
-  const [userFormData, setUserFormData] = useState({
-    name: "",
+function RegisterSeller() {
+  const [sellerFormData, setSellerFormData] = useState({
+    fullName: "",
     phone: "",
-    email: "",
+    businessEmail: "",
+    shopName: "",
+    address: "",
     password: "",
     cpassword: "",
   });
-  const {name, phone, email, password, cpassword} = userFormData;
+  const {
+    fullName,
+    phone,
+    businessEmail,
+    shopName,
+    address,
+    password,
+    cpassword,
+  } = sellerFormData;
 
   const dispatch = useDispatch();
-  const {user, isSuccess, isError, message} = useSelector(
-    (state) => state.user
+  const {seller, isSuccess, isError, message} = useSelector(
+    (state) => state.seller || {}
   );
 
   // Input Handler
   const onChange = (e) => {
-    setUserFormData((prevState) => ({
+    setSellerFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
   };
 
-  // Check If User Already Exists
-  useEffect(() => {
-    if (isError && message) {
-      toast.error(message);
-    }
-    if (isSuccess || user) {
-      toast.success("Token Checked Automatically Loggin In  ");
-    }
-
-    dispatch(reset());
-  }, [user, isError, message, isSuccess, dispatch]);
+  // Check If Seller Already Exists
+  useEffect(
+    (e) => {
+      if (isError && message) {
+        toast.error(message);
+      }
+      if (seller) {
+        toast.success("Token Checked Automatically Loggin In  ");
+      }
+      if (isSuccess) {
+        toast.success("Registered Successfully");
+      }
+      dispatch(reset());
+    },
+    [seller, isError, isSuccess, message, dispatch]
+  );
 
   // REGISTER LOGIC
-  const registerUser = (e) => {
+  const registerSeller = (e) => {
     e.preventDefault();
-
     if (isError) {
       toast.error(message);
       return;
@@ -53,15 +67,17 @@ function RegisterUser() {
     if (password !== cpassword) {
       toast.error("Passwords Doesn't Match");
     } else {
-      const userData = {
-        name,
+      const sellerData = {
+        fullName,
         phone,
-        email,
+        businessEmail,
+        shopName,
+        address,
         password: password,
       };
 
-      dispatch(register(userData));
-      console.log("User Registered Successfully");
+      dispatch(register(sellerData));
+      console.log("Seller Registered Successfully");
     }
   };
 
@@ -90,21 +106,21 @@ function RegisterUser() {
           {/* Form Section */}
           <div className="w-1/2 p-8 flex flex-col justify-center bg-white rounded-tr-xl rounded-br-xl ">
             <h2 className="text-center text-2xl font-bold text-black mb-6 rounded-lg pt-1 pb-2">
-              Create New Account
+              Create New Seller Account
             </h2>
-            <form method="POST" className="space-y-4" onSubmit={registerUser}>
+            <form method="POST" className="space-y-4" onSubmit={registerSeller}>
               <div>
                 <label
-                  htmlFor="username"
+                  htmlFor="fullName"
                   className="block text-sm font-medium text-black"
                 >
-                  Username
+                  Full Name
                 </label>
                 <input
                   type="text"
-                  name="name"
-                  id="name"
-                  value={name}
+                  name="fullName"
+                  id="fullName"
+                  value={fullName}
                   className="rounded-lg bg-gray-50 border text-gray-900 text-sm w-full p-2.5"
                   placeholder="eg. Aryan Manjarekar"
                   onChange={onChange}
@@ -131,15 +147,49 @@ function RegisterUser() {
 
               <div>
                 <label
-                  htmlFor="email"
+                  htmlFor="businessEmail"
                   className="block text-sm font-medium text-black"
                 >
-                  Email address
+                  Business Email address
                 </label>
                 <input
                   type="email"
-                  name="email"
-                  id="email"
+                  name="businessEmail"
+                  id="businessEmail"
+                  className="rounded-lg bg-gray-50 border text-gray-900 text-sm w-full p-2.5"
+                  onChange={onChange}
+                  required
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="shopName"
+                  className="block text-sm font-medium text-black"
+                >
+                  Shop Name
+                </label>
+                <input
+                  type="text"
+                  name="shopName"
+                  id="shopName"
+                  className="rounded-lg bg-gray-50 border text-gray-900 text-sm w-full p-2.5"
+                  onChange={onChange}
+                  required
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="address"
+                  className="block text-sm font-medium text-black"
+                >
+                  Address
+                </label>
+                <input
+                  type="text"
+                  name="address"
+                  id="address"
                   className="rounded-lg bg-gray-50 border text-gray-900 text-sm w-full p-2.5"
                   onChange={onChange}
                   required
@@ -191,7 +241,7 @@ function RegisterUser() {
             </form>
             <Link to="/loginUser">
               <p className="mt-10 text-center text-sm text-gray-500">
-                Existing User? Login Here
+                Existing Seller? Login Here
               </p>
             </Link>
           </div>
@@ -201,4 +251,4 @@ function RegisterUser() {
   );
 }
 
-export default RegisterUser;
+export default RegisterSeller;

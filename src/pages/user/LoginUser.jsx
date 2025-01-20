@@ -1,8 +1,11 @@
 import React, {useState, useEffect} from "react";
-import websiteLogo from "../../../public/Website Main Logo Transparent.png";
-import {login, reset} from "../../features/Users/userSlice";
 import {useSelector, useDispatch} from "react-redux";
 import {toast} from "react-toastify";
+import {Link} from "react-router-dom";
+
+//////////////////////////////////////////
+import {login, reset} from "../../features/Users/userSlice";
+import websiteLogo from "../../../public/Website Main Logo Transparent.png";
 
 function LoginUser() {
   const [userFormData, setUserFormData] = useState({
@@ -115,6 +118,11 @@ function LoginUser() {
                 </button>
               </div>
             </form>
+            <Link to="/registerUser">
+              <p className="mt-10 text-center text-sm text-gray-500">
+                New? Please Register here
+              </p>
+            </Link>
           </div>
         </div>
       </div>

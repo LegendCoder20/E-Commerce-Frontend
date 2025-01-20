@@ -1,54 +1,37 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import userService from "./userService";
+import sellerService from "./sellerService";
 
-const user = JSON.parse(localStorage.getItem("User"));
+// Check if the seller data exists in localStorage and parse it
+const seller = JSON.parse(localStorage.getItem("Seller"));
 
 const initialState = {
-  user: user ? user : null,
-  cart: [],
-  checkoutCart: [],
+  seller: seller ? seller : null,
+  products: [],
+  product: [],
   isSuccess: false,
   isError: false,
   isLoading: false,
   message: "",
 };
 
-//🟨REGISTER USER FEATURE🟨//
+// 🟨REGISTER SELLER FEATURE🟨//
 export const register = createAsyncThunk(
-  "/user/register",
-  async (userData, thunkAPI) => {
+  "/seller/register",
+  async (sellerData, thunkAPI) => {
     try {
-      return await userService.register(userData);
+      return await sellerService.register(sellerData); // Assuming sellerService handles the API call
     } catch (err) {
       const message =
         err.response && err.response.data && err.response.data.message
           ? err.response.data.message
-          : err.message || "An error occurred in User Register";
+          : err.message || "An error occurred in Seller Register";
 
       return thunkAPI.rejectWithValue(message);
     }
   }
 );
 
-//🟩LOGIN USER FEATURE🟩//
-export const login = createAsyncThunk(
-  "/user/login",
-  async (userData, thunkAPI) => {
-    try {
-      return await userService.login(userData);
-    } catch (err) {
-      const message =
-        err.response && err.response.data && err.response.data.message
-          ? err.response.data.message
-          : err.message || "An Error Occured in User Login";
-
-      return thunkAPI.rejectWithValue(message);
-    }
-  }
-);
-
-//// REDUX ////
-
+// Common handler for pending, fulfilled, and rejected states
 const handlePending = (state) => {
   state.isLoading = true;
 };
@@ -57,7 +40,7 @@ const handleFulfilled = (state, action, field) => {
   state.isLoading = false;
   state.isSuccess = true;
   if (field) {
-    state[field] = action.payload;
+    state[field] = action.payload; // Set the seller data in state
   }
 };
 
@@ -70,10 +53,9 @@ const handleRejected = (state, action, field) => {
   state.message = action.payload;
 };
 
-//// USER SLICE ////
-
-export const userSlice = createSlice({
-  name: "user",
+// 🟩SELLER SLICE🟩//
+export const sellerSlice = createSlice({
+  name: "seller",
   initialState,
   reducers: {
     reset: (state) => {
@@ -84,10 +66,7 @@ export const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    const asyncActions = [
-      {action: register, field: "user"},
-      {action: login, field: "user"},
-    ];
+    const asyncActions = [{action: registerSeller, field: "seller"}];
 
     asyncActions.forEach(({action, field}) => {
       builder
@@ -102,5 +81,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const {reset} = userSlice.actions;
-export default userSlice.reducer;
+export const {reset} = sellerSlice.actions;
+export default sellerSlice.reducer;

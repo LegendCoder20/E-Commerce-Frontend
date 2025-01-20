@@ -9,11 +9,8 @@ const register = async (userData) => {
   if (response.data) {
     localStorage.setItem("User", JSON.stringify(response.data));
   }
-
   return response.data;
 };
-
-//🟧REGISTER USER FEATURE🟧//
 
 //🟨LOGIN USER FEATURE🟨//
 const login = async (userData) => {
@@ -23,10 +20,8 @@ const login = async (userData) => {
   }
   return response.data;
 };
-//🟧LOGIN USER FEATURE🟧//
 
 //🟨LOGOUT USER FEATURE🟨//
-//🟧LOGOUT USER FEATURE🟧//
 
 const userService = {
   register,
