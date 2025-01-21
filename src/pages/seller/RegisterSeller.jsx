@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import {toast} from "react-toastify";
 import {Link} from "react-router-dom";
@@ -8,6 +8,8 @@ import {register, reset} from "../../features/Sellers/sellerSlice";
 import websiteLogo from "../../../public/Website Main Logo Transparent.png";
 
 function RegisterSeller() {
+  const nameRef = useRef();
+
   const [sellerFormData, setSellerFormData] = useState({
     fullName: "",
     phone: "",
@@ -41,21 +43,18 @@ function RegisterSeller() {
   };
 
   // Check If Seller Already Exists
-  useEffect(
-    (e) => {
-      if (isError && message) {
-        toast.error(message);
-      }
-      if (seller) {
-        toast.success("Token Checked Automatically Loggin In  ");
-      }
-      if (isSuccess) {
-        toast.success("Registered Successfully");
-      }
-      dispatch(reset());
-    },
-    [seller, isError, isSuccess, message, dispatch]
-  );
+  useEffect(() => {
+    // nameRef.current.focus();
+
+    if (isError && message) {
+      toast.error(message);
+    }
+    if (isSuccess || seller) {
+      toast.success("Token Checked Automatically Loggin In  ");
+    }
+
+    dispatch(reset());
+  }, [seller, isError, message, isSuccess, dispatch]);
 
   // REGISTER LOGIC
   const registerSeller = (e) => {
@@ -121,8 +120,10 @@ function RegisterSeller() {
                   name="fullName"
                   id="fullName"
                   value={fullName}
+                  // ref={nameRef}
                   className="rounded-lg bg-gray-50 border text-gray-900 text-sm w-full p-2.5"
                   placeholder="eg. Aryan Manjarekar"
+                  autoComplete="name"
                   onChange={onChange}
                   required
                 />
@@ -140,6 +141,7 @@ function RegisterSeller() {
                   name="phone"
                   id="phone"
                   className="rounded-lg bg-gray-50 border text-gray-900 text-sm w-full p-2.5"
+                  autoComplete="tel"
                   onChange={onChange}
                   required
                 />
@@ -157,6 +159,8 @@ function RegisterSeller() {
                   name="businessEmail"
                   id="businessEmail"
                   className="rounded-lg bg-gray-50 border text-gray-900 text-sm w-full p-2.5"
+                  autoComplete="email"
+                  style={{textTransform: "lowercase"}}
                   onChange={onChange}
                   required
                 />
@@ -174,6 +178,7 @@ function RegisterSeller() {
                   name="shopName"
                   id="shopName"
                   className="rounded-lg bg-gray-50 border text-gray-900 text-sm w-full p-2.5"
+                  autoComplete="organization"
                   onChange={onChange}
                   required
                 />
@@ -191,6 +196,7 @@ function RegisterSeller() {
                   name="address"
                   id="address"
                   className="rounded-lg bg-gray-50 border text-gray-900 text-sm w-full p-2.5"
+                  autoComplete="street-address"
                   onChange={onChange}
                   required
                 />
@@ -239,7 +245,7 @@ function RegisterSeller() {
                 </button>
               </div>
             </form>
-            <Link to="/loginUser">
+            <Link to="/loginSeller">
               <p className="mt-10 text-center text-sm text-gray-500">
                 Existing Seller? Login Here
               </p>

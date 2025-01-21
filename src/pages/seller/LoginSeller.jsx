@@ -1,28 +1,28 @@
 import React, {useState, useEffect, useRef} from "react";
-import {useSelector, useDispatch} from "react-redux";
-import {toast} from "react-toastify";
 import {Link} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {toast} from "react-toastify";
 
 //////////////////////////////////////////
-import {login, reset} from "../../features/Users/userSlice";
+import {login, reset} from "../../features/Sellers/sellerSlice";
 import websiteLogo from "../../../public/Website Main Logo Transparent.png";
 
-function LoginUser() {
+function LoginSeller() {
   const emailRef = useRef();
 
-  const [userFormData, setUserFormData] = useState({
-    email: "",
+  const [sellerFormData, setSellerFormData] = useState({
+    businessEmail: "",
     password: "",
   });
 
-  const {email, password} = userFormData;
+  const {businessEmail, password} = sellerFormData;
   const dispatch = useDispatch();
-  const {user, isError, isSuccess, message} = useSelector(
-    (state) => state.user
+  const {seller, isSuccess, isError, message} = useSelector(
+    (state) => state.seller || {}
   );
 
   const onChange = (e) => {
-    setUserFormData((prevState) => ({
+    setSellerFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
@@ -34,21 +34,22 @@ function LoginUser() {
     if (isError && message) {
       toast.error(message);
     }
-    if (isSuccess || user) {
+    if (isSuccess || seller) {
       toast.success("Token Checked Automatically Loggin In  ");
     }
 
     dispatch(reset());
-  }, [user, isError, message, isSuccess, dispatch]);
+  }, [seller, isError, isSuccess, message, dispatch]);
 
-  const loginUser = (e) => {
+  const loginSeller = (e) => {
     e.preventDefault();
-    const userData = {
-      email,
+    const sellerData = {
+      businessEmail,
       password,
     };
-    dispatch(login(userData));
-    console.log("User Logged In Successfully");
+
+    dispatch(login(sellerData));
+    console.log("Seller Logged In Successfully");
   };
 
   return (
@@ -75,10 +76,10 @@ function LoginUser() {
 
           {/* Form Section */}
           <div className="w-1/2 p-8 flex flex-col justify-center bg-white rounded-tr-xl rounded-br-xl ">
-            <h2 className="text-center text-2xl font-bold text-black mb-6 rounded-lg pt-1 pb-2">
-              Log In into Existing Account
+            <h2 className="text-center text-2xl font-bold text-black mb-6 rounded-lg pt-1 pb-2 ">
+              Log In into Seller Account
             </h2>
-            <form method="POST" className="space-y-4" onSubmit={loginUser}>
+            <form method="POST" className="space-y-4" onSubmit={loginSeller}>
               <div>
                 <label
                   htmlFor="email"
@@ -88,13 +89,13 @@ function LoginUser() {
                 </label>
                 <input
                   type="email"
-                  name="email"
-                  id="email"
-                  // ref={emailRef}
+                  name="businessEmail"
+                  id=" businessEmail"
+                  //   ref={emailRef}
                   className="rounded-lg bg-gray-50 border text-gray-900 text-sm w-full p-2.5"
-                  autoComplete="email"
-                  style={{textTransform: "lowercase"}}
                   onChange={onChange}
+                  //   autoComplete="email"
+                  //   style={{textTransform: "lowercase"}}
                   required
                 />
               </div>
@@ -125,9 +126,9 @@ function LoginUser() {
                 </button>
               </div>
             </form>
-            <Link to="/registerUser">
+            <Link to="/registerSeller">
               <p className="mt-10 text-center text-sm text-gray-500">
-                New? Please Register here
+                New Seller? Please Register here
               </p>
             </Link>
           </div>
@@ -137,4 +138,4 @@ function LoginUser() {
   );
 }
 
-export default LoginUser;
+export default LoginSeller;

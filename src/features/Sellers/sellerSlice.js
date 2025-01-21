@@ -1,7 +1,6 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import sellerService from "./sellerService";
 
-// Check if the seller data exists in localStorage and parse it
 const seller = JSON.parse(localStorage.getItem("Seller"));
 
 const initialState = {
@@ -19,7 +18,7 @@ export const register = createAsyncThunk(
   "/seller/register",
   async (sellerData, thunkAPI) => {
     try {
-      return await sellerService.register(sellerData); // Assuming sellerService handles the API call
+      return await sellerService.register(sellerData);
     } catch (err) {
       const message =
         err.response && err.response.data && err.response.data.message
@@ -31,7 +30,25 @@ export const register = createAsyncThunk(
   }
 );
 
-// Common handler for pending, fulfilled, and rejected states
+// 🟨LOGIN SELLER FEATURE🟨//
+export const login = createAsyncThunk(
+  "/seller/login",
+  async (sellerData, thunkAPI) => {
+    try {
+      return await sellerService.login(sellerData);
+    } catch (err) {
+      const message =
+        err.response && err.response.data && err.response.data.message
+          ? err.response.data.message
+          : err.message || "An error occurred in Seller Login";
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+//// REDUX ////
+
 const handlePending = (state) => {
   state.isLoading = true;
 };
@@ -40,7 +57,7 @@ const handleFulfilled = (state, action, field) => {
   state.isLoading = false;
   state.isSuccess = true;
   if (field) {
-    state[field] = action.payload; // Set the seller data in state
+    state[field] = action.payload;
   }
 };
 
@@ -66,7 +83,10 @@ export const sellerSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    const asyncActions = [{action: registerSeller, field: "seller"}];
+    const asyncActions = [
+      {action: register, field: "seller"},
+      {action: login, field: "seller"},
+    ];
 
     asyncActions.forEach(({action, field}) => {
       builder

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import {toast} from "react-toastify";
 import {Link} from "react-router-dom";
@@ -8,6 +8,8 @@ import {register, reset} from "../../features/Users/userSlice";
 import websiteLogo from "../../../public/Website Main Logo Transparent.png";
 
 function RegisterUser() {
+  const nameRef = useRef();
+
   const [userFormData, setUserFormData] = useState({
     name: "",
     phone: "",
@@ -32,6 +34,8 @@ function RegisterUser() {
 
   // Check If User Already Exists
   useEffect(() => {
+    // nameRef.current.focus();
+
     if (isError && message) {
       toast.error(message);
     }
@@ -105,8 +109,10 @@ function RegisterUser() {
                   name="name"
                   id="name"
                   value={name}
+                  // ref={nameRef}
                   className="rounded-lg bg-gray-50 border text-gray-900 text-sm w-full p-2.5"
                   placeholder="eg. Aryan Manjarekar"
+                  autoComplete="name"
                   onChange={onChange}
                   required
                 />
@@ -124,6 +130,7 @@ function RegisterUser() {
                   name="phone"
                   id="phone"
                   className="rounded-lg bg-gray-50 border text-gray-900 text-sm w-full p-2.5"
+                  autoComplete="tel"
                   onChange={onChange}
                   required
                 />
@@ -141,6 +148,8 @@ function RegisterUser() {
                   name="email"
                   id="email"
                   className="rounded-lg bg-gray-50 border text-gray-900 text-sm w-full p-2.5"
+                  autoComplete="email"
+                  style={{textTransform: "lowercase"}}
                   onChange={onChange}
                   required
                 />

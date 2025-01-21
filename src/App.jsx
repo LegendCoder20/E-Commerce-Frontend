@@ -6,6 +6,7 @@ import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import RegisterUser from "./pages/user/RegisterUser";
 import LoginUser from "./pages/user/LoginUser";
 import RegisterSeller from "./pages/seller/RegisterSeller";
+import LoginSeller from "./pages/seller/LoginSeller";
 
 function App() {
   return (
@@ -26,6 +27,12 @@ function App() {
           <Route
             path="/registerSeller"
             element={<RegisterSeller></RegisterSeller>}
+          ></Route>
+
+          {/*🟡Login Seller🟡*/}
+          <Route
+            path="/loginSeller"
+            element={<LoginSeller></LoginSeller>}
           ></Route>
         </Routes>
       </Router>

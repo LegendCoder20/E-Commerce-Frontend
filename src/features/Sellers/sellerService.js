@@ -6,7 +6,7 @@ const API_URL = "http://localhost:5000/api/seller";
 const register = async (sellerData) => {
   const response = await axios.post(`${API_URL}/register`, sellerData);
   if (response.data) {
-    localStorage.setItem("Seller", JSON.stringify(response.data));
+    localStorage.setItem("Seller", JSON.stringify(response.data.token));
   }
   return response.data;
 };
@@ -15,10 +15,10 @@ const register = async (sellerData) => {
 const login = async (sellerData) => {
   const response = await axios.post(`${API_URL}/login`, sellerData);
   if (response.data) {
-    localStorage.setItem("Seller", JSON.stringify(response.data));
+    localStorage.setItem("Seller", JSON.stringify(response.data.token));
   }
   return response.data;
 };
 
-const sellerService = {register};
+const sellerService = {register, login};
 export default sellerService;
