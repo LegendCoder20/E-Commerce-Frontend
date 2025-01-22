@@ -14,6 +14,9 @@ import RegisterSeller from "./pages/seller/RegisterSeller";
 import LoginSeller from "./pages/seller/LoginSeller";
 // Importing Other Components
 import Navbar from "./pages/components/Navbar";
+import AboutMe from "./pages/components/AboutMe";
+import NotFoundPage from "./pages/components/NotFoundPage";
+import ContactMe from "./pages/components/ContactMe";
 
 function App() {
   return (
@@ -33,6 +36,13 @@ function App() {
 
         {/*🟡Login Seller🟡*/}
         <Route path="/loginSeller" element={<LoginSeller />}></Route>
+
+        {/*🟠OTHER ROUTES🟠*/}
+        <Route path="/aboutme" element={<AboutMe />}></Route>
+        <Route path="/contactme" element={<ContactMe />}></Route>
+
+        {/*🔴WRONG URL🔴*/}
+        <Route path="*" element={<NotFoundPage />}></Route>
       </Routes>
     </Router>
   );
