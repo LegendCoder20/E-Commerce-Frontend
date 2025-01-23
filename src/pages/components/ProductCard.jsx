@@ -1,4 +1,4 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import {Dialog} from "@headlessui/react";
 import {XMarkIcon} from "@heroicons/react/24/outline";
 
@@ -12,18 +12,46 @@ const product = {
   imageAlt: "Two each of gray, white, and black shirts arranged on table.",
 };
 
-export default function ProductCard() {
+export default function ProductGrid() {
   const [open, setOpen] = useState(false);
 
   return (
-    <>
-      {/* Trigger Button */}
-      <button
-        onClick={() => setOpen(true)}
-        className="rounded-md bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700"
-      >
-        Open Dialog
-      </button>
+    <React.Fragment>
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4 place-items-center min-h-screen">
+        {[...Array(10)].map((_, index) => (
+          <div key={index}>
+            {/* Product Card */}
+            <div className="relative group w-full max-w-xs mx-auto mb-10 ">
+              {/* Product Image */}
+              <img
+                src={product.imageSrc}
+                alt={product.imageAlt}
+                className="w-auto lg:h-80 md:h-80 sm:h-96  object-contain rounded-lg"
+              />
+
+              {/* Hover Effect */}
+              <div
+                className="absolute inset-x-0 bottom-16 m-3 h-10 bg-gray-300 bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer md:w-auto  sm:w-[14.5rem]"
+                onClick={() => setOpen(true)}
+              >
+                <button className="text-black font-medium pointer-events-none w-auto ">
+                  Quick View
+                </button>
+              </div>
+
+              {/* Product Name */}
+              <div className="mt-2 text-center text-lg font-medium text-gray-900">
+                {product.name}
+              </div>
+
+              {/* Product Price */}
+              <div className="mt-2 text-center text-sm text-gray-600">
+                {product.price}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
 
       {/* Dialog */}
       <Dialog
@@ -38,7 +66,7 @@ export default function ProductCard() {
         />
 
         {/* Panel */}
-        <div className="fixed inset-0 z-10 overflow-y-auto flex items-center justify-center mt-20 p-4 pt-44">
+        <div className="fixed inset-0 z-10 overflow-y-auto flex items-center justify-center lg:mt-2 mt-20 p-4 lg:pt-14 pt-44">
           <Dialog.Panel className="relative w-full max-w-xs sm:max-w-2xl transform overflow-hidden rounded-lg bg-white p-4 sm:p-6 text-left shadow-xl transition-all">
             {/* Close Button */}
             <button
@@ -50,16 +78,13 @@ export default function ProductCard() {
               <XMarkIcon className="h-6 w-6" aria-hidden="true" />
             </button>
 
-            {/* Product Content */}
+            {/* Product Details */}
             <div className="flex flex-col sm:flex-row h-auto sm:h-[30rem]">
-              {/* Image */}
               <img
                 src={product.imageSrc}
                 alt={product.imageAlt}
                 className="w-full sm:max-w-sm object-contain rounded-lg bg-gray-100"
               />
-
-              {/* Product Details */}
               <div className="mt-4 sm:mt-0 sm:ml-6">
                 <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
                   {product.name}
@@ -73,6 +98,6 @@ export default function ProductCard() {
           </Dialog.Panel>
         </div>
       </Dialog>
-    </>
+    </React.Fragment>
   );
 }

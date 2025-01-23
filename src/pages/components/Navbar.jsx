@@ -29,7 +29,7 @@ const Navbar = React.memo(() => {
           >
             <img
               src={WebsiteLogo}
-              className="lg:h-12 md:h-12 h-12"
+              className="lg:h-12 md:h-12 h-11 sm:h-12"
               alt="ClickNShop logo"
             />
           </Link>
