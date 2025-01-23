@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 
 /////////////////////////////
 import HeaderTitle from "../small components/HeaderTitle";
+import WebsiteLogo from "../../../public/Website Navbar Logo.jpg";
 import shoppingCartLogo from "../../../public/shopping cart logo.png";
 import mouseCursorLogo from "../../../public/mouse cursor logo.png";
 
@@ -27,17 +28,8 @@ const Navbar = React.memo(() => {
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
             <img
-              src={mouseCursorLogo}
-              className="lg:h-8 md:h-8 h-6"
-              alt="ClickNShop logo"
-            />
-            <span className="self-center  font-semibold whitespace-nowrap dark:text-white  lg:text-4xl md:text-4xl text-2xl">
-              Click<b className="text-yellow-500">N</b>
-              Shop
-            </span>
-            <img
-              src={shoppingCartLogo}
-              className="lg:h-10 md:h-10 h-7"
+              src={WebsiteLogo}
+              className="lg:h-12 md:h-12 h-12"
               alt="ClickNShop logo"
             />
           </Link>
@@ -144,7 +136,7 @@ const Navbar = React.memo(() => {
               <li>
                 <Link
                   to="/"
-                  className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-teal-300 md:text-lg md:dark:hover:text-teal-500"
+                  className="relative block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-teal-300 md:text-lg md:dark:hover:text-teal-500 after:content-[''] after:block after:h-1 after:bg-teal-400  after:absolute after:bottom-0 after:left-0 after:w-full after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100"
                   aria-current="page"
                 >
                   Home
@@ -153,8 +145,7 @@ const Navbar = React.memo(() => {
               <li>
                 <Link
                   to="/aboutme"
-                  href="#"
-                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-teal-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 md:dark:text-teal-300 md:text-lg"
+                  className="relative block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-teal-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 md:dark:text-teal-300 md:text-lg after:content-[''] after:block after:h-1 after:bg-teal-400 after:absolute after:bottom-0 after:left-0 after:w-full after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100"
                 >
                   About
                 </Link>
@@ -162,20 +153,19 @@ const Navbar = React.memo(() => {
               <li>
                 <Link
                   to="/contactme"
-                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-teal-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700  md:dark:text-teal-300 md:text-lg"
+                  className="relative block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-teal-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 md:dark:text-teal-300 md:text-lg after:content-[''] after:block after:h-1 after:bg-teal-400 after:absolute after:bottom-0 after:left-0 after:w-full after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100"
                 >
                   Contact
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/"
-                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-teal-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700  md:dark:text-teal-300 md:text-lg"
+                  to="/pricing"
+                  className="relative block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-teal-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 md:dark:text-teal-300 md:text-lg after:content-[''] after:block after:h-1 after:bg-teal-400 after:absolute after:bottom-0 after:left-0 after:w-full after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100"
                 >
                   Pricing
                 </Link>
               </li>
-              <li></li>
             </ul>
           </div>
         </div>

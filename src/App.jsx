@@ -12,6 +12,8 @@ import RegisterUser from "./pages/user/RegisterUser";
 import LoginUser from "./pages/user/LoginUser";
 import RegisterSeller from "./pages/seller/RegisterSeller";
 import LoginSeller from "./pages/seller/LoginSeller";
+import HomePage from "./pages/components/HomePage";
+
 // Importing Other Components
 import Navbar from "./pages/components/Navbar";
 import AboutMe from "./pages/components/AboutMe";
@@ -36,6 +38,9 @@ function App() {
 
         {/*🟡Login Seller🟡*/}
         <Route path="/loginSeller" element={<LoginSeller />}></Route>
+
+        {/*🟡Product Card🟡*/}
+        <Route path="/" element={<HomePage />}></Route>
 
         {/*🟠OTHER ROUTES🟠*/}
         <Route path="/aboutme" element={<AboutMe />}></Route>
