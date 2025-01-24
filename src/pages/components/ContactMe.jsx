@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import emailjs from "@emailjs/browser";
 import {toast} from "react-toastify";
 
-const ContactMe = React.memo(() => {
+function ContactMe() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneno, setPhoneNo] = useState("");
@@ -144,6 +144,6 @@ const ContactMe = React.memo(() => {
       </div>
     </React.Fragment>
   );
-});
+}
 
 export default ContactMe;

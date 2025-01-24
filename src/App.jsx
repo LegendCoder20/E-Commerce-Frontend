@@ -13,6 +13,7 @@ import LoginUser from "./pages/user/LoginUser";
 import RegisterSeller from "./pages/seller/RegisterSeller";
 import LoginSeller from "./pages/seller/LoginSeller";
 import HomePage from "./pages/components/HomePage";
+import ProductDetail from "./pages/product/ProductDetail";
 
 // Importing Other Components
 import Navbar from "./pages/components/Navbar";
@@ -41,6 +42,12 @@ function App() {
 
         {/*🟡Product Card🟡*/}
         <Route path="/" element={<HomePage />}></Route>
+
+        {/*🟡Product Card🟡*/}
+        <Route
+          path="/productDetails"
+          element={<ProductDetail></ProductDetail>}
+        ></Route>
 
         {/*🟠OTHER ROUTES🟠*/}
         <Route path="/aboutme" element={<AboutMe />}></Route>

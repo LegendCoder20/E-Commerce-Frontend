@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 
-const NotFoundPage = React.memo(() => {
+function NotFoundPage() {
   return (
     <React.Fragment>
       <main className="grid min-h-full place-items-center bg-white px-6 py-24 sm:py-32 lg:px-8">
@@ -33,6 +33,6 @@ const NotFoundPage = React.memo(() => {
       </main>
     </React.Fragment>
   );
-});
+}
 
 export default NotFoundPage;

@@ -7,7 +7,7 @@ import WebsiteLogo from "../../../public/Website Navbar Logo.jpg";
 import shoppingCartLogo from "../../../public/shopping cart logo.png";
 import mouseCursorLogo from "../../../public/mouse cursor logo.png";
 
-const Navbar = React.memo(() => {
+function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -173,6 +173,6 @@ const Navbar = React.memo(() => {
       <HeaderTitle />
     </React.Fragment>
   );
-});
+}
 
 export default Navbar;

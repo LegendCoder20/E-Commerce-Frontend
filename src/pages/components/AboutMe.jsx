@@ -1,7 +1,7 @@
 import React from "react";
 import aryanPhoto from "../../../public/Website Owner Photo.png";
 
-const AboutMe = React.memo(() => {
+function AboutMe() {
   return (
     <>
       <div className="bg-gray-50 min-h-screen py-10 px-4 lg:px-10">
@@ -98,6 +98,6 @@ const AboutMe = React.memo(() => {
       </div>
     </>
   );
-});
+}
 
 export default AboutMe;

@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {Dialog} from "@headlessui/react";
 import {XMarkIcon} from "@heroicons/react/24/outline";
+import {Link} from "react-router-dom";
 
 const product = {
   name: "Basic Tee 6-Pack",
@@ -23,11 +24,13 @@ export default function ProductGrid() {
             {/* Product Card */}
             <div className="relative group w-full max-w-xs mx-auto mb-10 ">
               {/* Product Image */}
-              <img
-                src={product.imageSrc}
-                alt={product.imageAlt}
-                className="w-auto lg:h-80 md:h-80 sm:h-96  object-contain rounded-lg"
-              />
+              <Link to="/productDetails">
+                <img
+                  src={product.imageSrc}
+                  alt={product.imageAlt}
+                  className="w-auto lg:h-80 md:h-80 sm:h-96  object-contain rounded-lg"
+                />
+              </Link>
 
               {/* Hover Effect */}
               <div
