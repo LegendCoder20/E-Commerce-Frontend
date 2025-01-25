@@ -35,9 +35,8 @@ function LoginUser() {
     if (isError && message) {
       toast.error(message);
     }
-    if (isSuccess || user) {
-      toast.success("Token Checked Automatically Loggin In  ");
-    }
+    // if (isSuccess || user) {
+    // }
 
     dispatch(reset());
   }, [user, isError, message, isSuccess, dispatch]);

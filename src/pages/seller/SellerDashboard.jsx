@@ -10,32 +10,43 @@ const product = {
   description:
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum tempora iure, sapiente voluptas laudantium sint libero corrupti qui molestiae unde fuga nobis dolore temporibus eos tenetur tempore quidem sit alias.",
   imageSrc:
-    "https://png.pngtree.com/thumb_back/fh260/background/20240417/pngtree-black-t-shirt-image_15716534.jpg",
+    "https://static.vecteezy.com/system/resources/previews/028/248/129/non_2x/design-mockup-clothes-realistic-3d-rendering-of-blank-hoodies-ai-generated-photo.jpg",
   imageAlt: "Two each of gray, white, and black shirts arranged on table.",
 };
 
-export default function ProductCard() {
+function SellerDashboard() {
   const [open, setOpen] = useState(false);
 
   return (
     <React.Fragment>
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4 place-items-center min-h-screen">
+      <div className="add-recipe-btn text-center pt-6 bg-lightest-grey">
+        <Link to="/sellerDashboard">
+          <button
+            type="button"
+            className="focus:outline-none text-white bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 font-medium rounded-lg text-sm px-5 py-2.5 mb-4 transition-all duration-300"
+          >
+            Add Product
+          </button>
+        </Link>
+      </div>
+
+      {/* Products  */}
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 p-3 place-items-center min-h-screen">
         {[...Array(10)].map((_, index) => (
           <div key={index}>
             {/* Product Card */}
-            <div className="relative group w-full max-w-xs mx-auto mb-4 ">
+            <div className="relative group w-full max-w-xs mx-auto mb-1 ">
               {/* Product Image */}
-              <Link to="/productDetails">
-                <img
-                  src={product.imageSrc}
-                  alt={product.imageAlt}
-                  className="w-full  object-cover rounded-lg sm:h-auto h-48 "
-                />
-              </Link>
+
+              <img
+                src={product.imageSrc}
+                alt={product.imageAlt}
+                className="w-full  object-cover rounded-lg sm:h-auto h-48"
+              />
 
               {/* Hover Effect */}
               <div
-                className="absolute inset-x-0 bottom-16 m-3 h-10 bg-gray-300 bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer md:w-auto  sm:w-[14.5rem]"
+                className="absolute inset-x-0 bottom-8 m-3 h-10 bg-gray-300 bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer md:w-auto  sm:w-[14.5rem]"
                 onClick={() => setOpen(true)}
               >
                 <button className="text-black font-medium pointer-events-none w-auto ">
@@ -44,14 +55,26 @@ export default function ProductCard() {
               </div>
 
               {/* Product Name */}
-              <div className="mt-2 text-center text-lg font-medium text-gray-900">
+              <div className="mt-2 text-center text-lg font-medium text-gray-900 ">
                 {product.name}
               </div>
+            </div>
+            <div className="flex justify-around mb-8">
+              <Link to={`/sellerDashboard`}>
+                <button
+                  type="button"
+                  className="bg-gradient-to-r  from-yellow-500 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-white font-medium rounded-lg text-sm px-4 py-2 transition-colors "
+                >
+                  Update
+                </button>
+              </Link>
 
-              {/* Product Price */}
-              <div className="mt-2 text-center text-sm text-gray-600">
-                {product.price}
-              </div>
+              <button
+                type="button"
+                className="bg-gradient-to-r  from-red-400 to-red-600 hover:from-red-500 hover:to-red-700 text-white font-medium rounded-lg text-sm px-4 py-2 transition-colors "
+              >
+                Delete
+              </button>
             </div>
           </div>
         ))}
@@ -106,3 +129,5 @@ export default function ProductCard() {
     </React.Fragment>
   );
 }
+
+export default SellerDashboard;

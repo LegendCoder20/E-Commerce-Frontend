@@ -6,7 +6,7 @@ function ProductDetail() {
 
   return (
     <React.Fragment>
-      <div className="bg-gray-100 min-h-screen py-4">
+      <div className="bg-gray-100 min-h-screen py-4 sm:mb-0 mb-4">
         <div className="max-w-5xl mx-auto bg-white shadow-md rounded-lg p-6">
           <div className="flex flex-col md:flex-row gap-8">
             {/* Image Slider */}

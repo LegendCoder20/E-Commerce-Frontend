@@ -14,9 +14,11 @@ import RegisterSeller from "./pages/seller/RegisterSeller";
 import LoginSeller from "./pages/seller/LoginSeller";
 import HomePage from "./pages/components/HomePage";
 import ProductDetail from "./pages/product/ProductDetail";
+import SellerDashboard from "./pages/seller/SellerDashboard";
 
 // Importing Other Components
 import Navbar from "./pages/components/Navbar";
+import Footer from "./pages/components/Footer";
 import AboutMe from "./pages/components/AboutMe";
 import NotFoundPage from "./pages/components/NotFoundPage";
 import ContactMe from "./pages/components/ContactMe";
@@ -43,11 +45,14 @@ function App() {
         {/*🟡Product Card🟡*/}
         <Route path="/" element={<HomePage />}></Route>
 
-        {/*🟡Product Card🟡*/}
+        {/*🟡Product Details Card🟡*/}
         <Route
           path="/productDetails"
           element={<ProductDetail></ProductDetail>}
         ></Route>
+
+        {/*🟡Seller Dashboard🟡*/}
+        <Route path="/sellerDashboard" element={<SellerDashboard />}></Route>
 
         {/*🟠OTHER ROUTES🟠*/}
         <Route path="/aboutme" element={<AboutMe />}></Route>
@@ -56,6 +61,7 @@ function App() {
         {/*🔴WRONG URL🔴*/}
         <Route path="*" element={<NotFoundPage />}></Route>
       </Routes>
+      <Footer />
     </Router>
   );
 }

@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {toast} from "react-toastify";
 
@@ -9,7 +9,8 @@ import websiteLogo from "../../../public/Website Main Logo Transparent.png";
 import WebsiteMainLogo from "../../../public/Website Main Logo.png";
 
 function LoginSeller() {
-  const emailRef = useRef();
+  // const emailRef = useRef();
+  const nav = useNavigate();
 
   const [sellerFormData, setSellerFormData] = useState({
     businessEmail: "",
@@ -36,7 +37,7 @@ function LoginSeller() {
       toast.error(message);
     }
     if (isSuccess || seller) {
-      toast.success("Token Checked Automatically Loggin In  ");
+      nav("/sellerDashboard");
     }
 
     dispatch(reset());
