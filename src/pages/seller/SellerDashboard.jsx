@@ -10,7 +10,7 @@ const product = {
   description:
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum tempora iure, sapiente voluptas laudantium sint libero corrupti qui molestiae unde fuga nobis dolore temporibus eos tenetur tempore quidem sit alias.",
   imageSrc:
-    "https://static.vecteezy.com/system/resources/previews/028/248/129/non_2x/design-mockup-clothes-realistic-3d-rendering-of-blank-hoodies-ai-generated-photo.jpg",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSz2HKTkRgy-cHKNR-x6oaLkWYpcWi8Qsky0Qjqkp0i-q17FGIEVMUviD0B-jLz30sMnx8&usqp=CAU",
   imageAlt: "Two each of gray, white, and black shirts arranged on table.",
 };
 
@@ -20,7 +20,7 @@ function SellerDashboard() {
   return (
     <React.Fragment>
       <div className="add-recipe-btn text-center pt-6 bg-lightest-grey">
-        <Link to="/sellerDashboard">
+        <Link to="/addProduct">
           <button
             type="button"
             className="focus:outline-none text-white bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 font-medium rounded-lg text-sm px-5 py-2.5 mb-4 transition-all duration-300"
@@ -31,7 +31,7 @@ function SellerDashboard() {
       </div>
 
       {/* Products  */}
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 p-3 place-items-center min-h-screen">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 p-3 place-items-center min-h-screen ">
         {[...Array(10)].map((_, index) => (
           <div key={index}>
             {/* Product Card */}
@@ -41,12 +41,12 @@ function SellerDashboard() {
               <img
                 src={product.imageSrc}
                 alt={product.imageAlt}
-                className="w-full  object-cover rounded-lg sm:h-auto h-48"
+                className="w-full rounded-lg sm:h-auto h-48 sm:max-w-sm object-cover"
               />
 
               {/* Hover Effect */}
               <div
-                className="absolute inset-x-0 bottom-8 m-3 h-10 bg-gray-300 bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer md:w-auto  sm:w-[14.5rem]"
+                className="absolute inset-x-0 bottom-8 m-3 h-10 bg-gray-300 bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer md:w-auto  sm:w-[14.5rem]  "
                 onClick={() => setOpen(true)}
               >
                 <button className="text-black font-medium pointer-events-none w-auto ">
@@ -59,7 +59,7 @@ function SellerDashboard() {
                 {product.name}
               </div>
             </div>
-            <div className="flex justify-around mb-8">
+            <div className="flex justify-around mb-2 gap-2">
               <Link to={`/sellerDashboard`}>
                 <button
                   type="button"

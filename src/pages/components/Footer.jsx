@@ -3,7 +3,7 @@ import React from "react";
 function Footer() {
   return (
     <React.Fragment>
-      <footer className="bg-gray-800 text-white py-2 ">
+      <footer className="bg-gray-800 text-white py-2 pt-5">
         <div className="container mx-auto flex flex-wrap justify-between gap-8">
           {/* Contact Us Section */}
           <div className="w-full sm:w-1/2 md:w-1/4 px-4">

@@ -35,7 +35,7 @@ export default function ProductCard() {
 
               {/* Hover Effect */}
               <div
-                className="absolute inset-x-0 bottom-16 m-3 h-10 bg-gray-300 bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer md:w-auto  sm:w-[14.5rem]"
+                className="absolute inset-x-0 bottom-12 m-3 h-10 bg-gray-300 bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer md:w-auto  sm:w-[14.5rem]"
                 onClick={() => setOpen(true)}
               >
                 <button className="text-black font-medium pointer-events-none w-auto ">
@@ -44,12 +44,12 @@ export default function ProductCard() {
               </div>
 
               {/* Product Name */}
-              <div className="mt-2 text-center text-lg font-medium text-gray-900">
+              <div className="mt-1 text-center text-lg font-medium text-gray-900">
                 {product.name}
               </div>
 
               {/* Product Price */}
-              <div className="mt-2 text-center text-sm text-gray-600">
+              <div className="mt-0 text-center text-sm text-gray-600">
                 {product.price}
               </div>
             </div>

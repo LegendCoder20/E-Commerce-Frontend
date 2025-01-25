@@ -8,13 +8,16 @@ import {
 } from "react-router-dom";
 
 // Importing Main Components
+import HomePage from "./pages/components/HomePage";
+import ProductDetail from "./pages/product/ProductDetail";
+import SellerDashboard from "./pages/seller/SellerDashboard";
+
+// Importing Forms
 import RegisterUser from "./pages/user/RegisterUser";
 import LoginUser from "./pages/user/LoginUser";
 import RegisterSeller from "./pages/seller/RegisterSeller";
 import LoginSeller from "./pages/seller/LoginSeller";
-import HomePage from "./pages/components/HomePage";
-import ProductDetail from "./pages/product/ProductDetail";
-import SellerDashboard from "./pages/seller/SellerDashboard";
+import AddProduct from "./pages/product/AddProduct";
 
 // Importing Other Components
 import Navbar from "./pages/components/Navbar";
@@ -53,6 +56,9 @@ function App() {
 
         {/*🟡Seller Dashboard🟡*/}
         <Route path="/sellerDashboard" element={<SellerDashboard />}></Route>
+
+        {/*🟡Add Product🟡*/}
+        <Route path="/addProduct" element={<AddProduct />}></Route>
 
         {/*🟠OTHER ROUTES🟠*/}
         <Route path="/aboutme" element={<AboutMe />}></Route>
