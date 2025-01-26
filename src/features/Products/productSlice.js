@@ -1,10 +1,7 @@
-import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import sellerService from "./sellerService";
-
-const seller = JSON.parse(localStorage.getItem("Seller"));
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import productService from "./productService";
 
 const initialState = {
-  seller: seller ? seller : null,
   products: [],
   product: [],
   isSuccess: false,
@@ -13,34 +10,34 @@ const initialState = {
   message: "",
 };
 
-// 🟨REGISTER SELLER FEATURE🟨//
-export const register = createAsyncThunk(
-  "/seller/register",
-  async (sellerData, thunkAPI) => {
+// 🟨GET PRODUCTS🟨//
+export const getAllProducts = createAsyncThunk(
+  "/products/all",
+  async (_, thunkAPI) => {
     try {
-      return await sellerService.register(sellerData);
+      return await productService.getProducts();
     } catch (err) {
       const message =
         err.response && err.response.data && err.response.data.message
           ? err.response.data.message
-          : err.message || "An error occured in Seller Register";
+          : err.message || "An Error Occured in Getting All Products";
 
       return thunkAPI.rejectWithValue(message);
     }
   }
 );
 
-// 🟨LOGIN SELLER FEATURE🟨//
-export const login = createAsyncThunk(
-  "/seller/login",
-  async (sellerData, thunkAPI) => {
+// 🟨GET PRODUCT DETAILS🟨//
+export const getProductDetails = createAsyncThunk(
+  "/productDetails",
+  async (id, thunkAPI) => {
     try {
-      return await sellerService.login(sellerData);
+      return await productService.getProductDetails(id);
     } catch (err) {
       const message =
         err.response && err.response.data && err.response.data.message
           ? err.response.data.message
-          : err.message || "An error occurred in Seller Login";
+          : err.message || "An Error Occured in Getting Product Details";
 
       return thunkAPI.rejectWithValue(message);
     }
@@ -48,9 +45,8 @@ export const login = createAsyncThunk(
 );
 
 //// REDUX ////
-
 const handlePending = (state) => {
-  state.isLoading = true;
+  state.isLoading = false; // true
 };
 
 const handleFulfilled = (state, action, field) => {
@@ -59,6 +55,7 @@ const handleFulfilled = (state, action, field) => {
   if (field) {
     state[field] = action.payload;
   }
+  console.log("Payload:", action.payload);
 };
 
 const handleRejected = (state, action, field) => {
@@ -70,22 +67,21 @@ const handleRejected = (state, action, field) => {
   state.message = action.payload;
 };
 
-// 🟩SELLER SLICE🟩//
-export const sellerSlice = createSlice({
-  name: "seller",
+export const productsSlice = createSlice({
+  name: "products",
   initialState,
   reducers: {
     reset: (state) => {
       state.isSuccess = false;
-      state.isLoading = false;
       state.isError = false;
+      state.isLoading = false;
       state.message = "";
     },
   },
   extraReducers: (builder) => {
     const asyncActions = [
-      {action: register, field: "seller"},
-      {action: login, field: "seller"},
+      {action: getAllProducts, field: "products"},
+      {action: getProductDetails, field: "products"},
     ];
 
     asyncActions.forEach(({action, field}) => {
@@ -101,5 +97,5 @@ export const sellerSlice = createSlice({
   },
 });
 
-export const {reset} = sellerSlice.actions;
-export default sellerSlice.reducer;
+export const {reset} = productsSlice.actions;
+export default productsSlice.reducer;

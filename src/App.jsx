@@ -50,7 +50,7 @@ function App() {
 
         {/*🟡Product Details Card🟡*/}
         <Route
-          path="/productDetails"
+          path="/productDetails/:id"
           element={<ProductDetail></ProductDetail>}
         ></Route>
 

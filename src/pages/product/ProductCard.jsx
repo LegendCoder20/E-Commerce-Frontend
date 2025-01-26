@@ -3,58 +3,40 @@ import {Dialog} from "@headlessui/react";
 import {XMarkIcon} from "@heroicons/react/24/outline";
 import {Link} from "react-router-dom";
 
-const product = {
-  name: "Basic Tee 6-Pack",
-  price: "$192",
-  category: "Shirt",
-  description:
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum tempora iure, sapiente voluptas laudantium sint libero corrupti qui molestiae unde fuga nobis dolore temporibus eos tenetur tempore quidem sit alias.",
-  imageSrc:
-    "https://png.pngtree.com/thumb_back/fh260/background/20240417/pngtree-black-t-shirt-image_15716534.jpg",
-  imageAlt: "Two each of gray, white, and black shirts arranged on table.",
-};
-
-export default function ProductCard() {
+const ProductCard = ({product}) => {
   const [open, setOpen] = useState(false);
 
   return (
     <React.Fragment>
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4 place-items-center min-h-screen">
-        {[...Array(10)].map((_, index) => (
-          <div key={index}>
-            {/* Product Card */}
-            <div className="relative group w-full max-w-xs mx-auto mb-4 ">
-              {/* Product Image */}
-              <Link to="/productDetails">
-                <img
-                  src={product.imageSrc}
-                  alt={product.imageAlt}
-                  className="w-full  object-cover rounded-lg sm:h-auto h-48 "
-                />
-              </Link>
+      <div className="relative group w-full max-w-xs mx-auto mb-4 ">
+        {/* Product Image */}
+        <Link to={`/productDetails/${product._id}`}>
+          <img
+            src={product.image && product.image.url}
+            alt={product.name}
+            className="w-full  object-cover rounded-lg sm:h-80 h-52 "
+          />
+        </Link>
 
-              {/* Hover Effect */}
-              <div
-                className="absolute inset-x-0 bottom-12 m-3 h-10 bg-gray-300 bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer md:w-auto  sm:w-[14.5rem]"
-                onClick={() => setOpen(true)}
-              >
-                <button className="text-black font-medium pointer-events-none w-auto ">
-                  Quick View
-                </button>
-              </div>
+        {/* Hover Effect */}
+        <div
+          className="absolute inset-x-0 bottom-12 m-3 h-10 bg-gray-300 bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer md:w-auto  sm:w-[14.5rem]"
+          onClick={() => setOpen(true)}
+        >
+          <button className="text-black font-medium pointer-events-none w-auto ">
+            Quick View
+          </button>
+        </div>
 
-              {/* Product Name */}
-              <div className="mt-1 text-center text-lg font-medium text-gray-900">
-                {product.name}
-              </div>
+        {/* Product Name */}
+        <div className="mt-1 text-center text-lg font-medium text-gray-900">
+          {product.name}
+        </div>
 
-              {/* Product Price */}
-              <div className="mt-0 text-center text-sm text-gray-600">
-                {product.price}
-              </div>
-            </div>
-          </div>
-        ))}
+        {/* Product Price */}
+        <div className="mt-0 text-center text-sm text-gray-600">
+          {product.price}
+        </div>
       </div>
 
       {/* Dialog */}
@@ -85,8 +67,8 @@ export default function ProductCard() {
             {/* Product Details */}
             <div className="flex flex-col sm:flex-row h-auto sm:h-[30rem]">
               <img
-                src={product.imageSrc}
-                alt={product.imageAlt}
+                src={product.image && product.image.url}
+                alt={product.name}
                 className="w-full sm:max-w-sm object-contain rounded-lg bg-gray-100"
               />
               <div className="mt-4 sm:mt-0 sm:ml-6">
@@ -94,6 +76,12 @@ export default function ProductCard() {
                   {product.name}
                 </h2>
                 <p className="mt-2 text-lg text-gray-900">{product.price}</p>
+                <p className="mt-2 text-lg text-gray-900">
+                  {product.seller && product.seller.fullName
+                    ? product.seller.fullName
+                    : "Seller not available"}
+                </p>
+
                 <p className="text-gray-600 mt-2">{product.category}</p>
                 <p className="mt-4 text-sm sm:text-lg text-gray-700">
                   {product.description}
@@ -105,4 +93,6 @@ export default function ProductCard() {
       </Dialog>
     </React.Fragment>
   );
-}
+};
+
+export default ProductCard;
