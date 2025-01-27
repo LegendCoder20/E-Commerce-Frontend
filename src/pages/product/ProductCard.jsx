@@ -3,11 +3,11 @@ import {Dialog} from "@headlessui/react";
 import {XMarkIcon} from "@heroicons/react/24/outline";
 import {Link} from "react-router-dom";
 
-const ProductCard = ({product}) => {
+const ProductCard = React.memo(({product}) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <React.Fragment>
+    <>
       <div className="relative group w-full max-w-xs mx-auto mb-4 ">
         {/* Product Image */}
         <Link to={`/productDetails/${product._id}`}>
@@ -91,8 +91,8 @@ const ProductCard = ({product}) => {
           </Dialog.Panel>
         </div>
       </Dialog>
-    </React.Fragment>
+    </>
   );
-};
+});
 
 export default ProductCard;

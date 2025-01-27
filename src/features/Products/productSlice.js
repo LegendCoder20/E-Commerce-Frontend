@@ -3,7 +3,7 @@ import productService from "./productService";
 
 const initialState = {
   products: [],
-  product: [],
+  product: {},
   isSuccess: false,
   isError: false,
   isLoading: false,
@@ -55,7 +55,6 @@ const handleFulfilled = (state, action, field) => {
   if (field) {
     state[field] = action.payload;
   }
-  console.log("Payload:", action.payload);
 };
 
 const handleRejected = (state, action, field) => {
@@ -81,7 +80,7 @@ export const productsSlice = createSlice({
   extraReducers: (builder) => {
     const asyncActions = [
       {action: getAllProducts, field: "products"},
-      {action: getProductDetails, field: "products"},
+      {action: getProductDetails, field: "product"},
     ];
 
     asyncActions.forEach(({action, field}) => {
