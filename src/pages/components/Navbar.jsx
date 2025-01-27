@@ -1,15 +1,24 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 
 /////////////////////////////
 import HeaderTitle from "../small components/HeaderTitle";
 import WebsiteLogo from "../../../public/Website Navbar Logo.jpg";
-import shoppingCartLogo from "../../../public/shopping cart logo.png";
-import mouseCursorLogo from "../../../public/mouse cursor logo.png";
+import {getUser} from "../../features/Users/userSlice";
 
 function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const dispatch = useDispatch();
+  const {user, isLoading, isError, message} = useSelector(
+    (state) => state.user
+  );
+
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -53,10 +62,10 @@ function Navbar() {
                 <div className="text-base list-none divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
                   <div className="px-4 py-3">
                     <span className="block text-sm text-gray-900 dark:text-white text-center">
-                      Bonnie Green
+                      {user.name}
                     </span>
                     <span className="block text-sm text-gray-500 truncate dark:text-gray-400 text-center">
-                      name@flowbite.com
+                      {user.email}
                     </span>
                   </div>
                   <ul>

@@ -46,7 +46,7 @@ export const getProductDetails = createAsyncThunk(
 
 //// REDUX ////
 const handlePending = (state) => {
-  state.isLoading = false; // true
+  state.isLoading = true;
 };
 
 const handleFulfilled = (state, action, field) => {

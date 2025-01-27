@@ -15,6 +15,7 @@ const ProductCard = React.memo(({product}) => {
             src={product.image && product.image.url}
             alt={product.name}
             className="w-full  object-cover rounded-lg sm:h-80 h-52 "
+            loading="lazy"
           />
         </Link>
 
@@ -35,6 +36,7 @@ const ProductCard = React.memo(({product}) => {
 
         {/* Product Price */}
         <div className="mt-0 text-center text-sm text-gray-600">
+          <span className="font-bold">₹</span>
           {product.price}
         </div>
       </div>
@@ -70,12 +72,17 @@ const ProductCard = React.memo(({product}) => {
                 src={product.image && product.image.url}
                 alt={product.name}
                 className="w-full sm:max-w-sm object-contain rounded-lg bg-gray-100"
+                loading="lazy"
               />
               <div className="mt-4 sm:mt-0 sm:ml-6">
                 <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
                   {product.name}
                 </h2>
-                <p className="mt-2 text-lg text-gray-900">{product.price}</p>
+                <p className="mt-2 text-lg text-gray-900">
+                  {" "}
+                  <span className="font-bold">₹</span>
+                  {product.price}
+                </p>
                 <p className="mt-2 text-lg text-gray-900">
                   {product.seller && product.seller.fullName
                     ? product.seller.fullName

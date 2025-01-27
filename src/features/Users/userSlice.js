@@ -1,7 +1,7 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import userService from "./userService";
 
-const user = JSON.parse(localStorage.getItem("User"));
+const user = localStorage.getItem("User");
 
 const initialState = {
   user: user ? user : null,
@@ -47,6 +47,20 @@ export const login = createAsyncThunk(
   }
 );
 
+//🟨GET USER FEATURE🟨//
+export const getUser = createAsyncThunk("/getUser", async (_, thunkAPI) => {
+  try {
+    return await userService.getUser();
+  } catch (err) {
+    const message =
+      err.response && err.response.data && err.response.data.message
+        ? err.response.data.message
+        : err.message || "An Error Occured while Getting User";
+
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
 //// REDUX ////
 
 const handlePending = (state) => {
@@ -87,6 +101,7 @@ export const userSlice = createSlice({
     const asyncActions = [
       {action: register, field: "user"},
       {action: login, field: "user"},
+      {action: getUser, field: "user"},
     ];
 
     asyncActions.forEach(({action, field}) => {

@@ -1,7 +1,7 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import sellerService from "./sellerService";
 
-const seller = JSON.parse(localStorage.getItem("Seller"));
+const seller = localStorage.getItem("Seller");
 
 const initialState = {
   seller: seller ? seller : null,
