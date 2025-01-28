@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import HeaderTitle from "../small components/HeaderTitle";
 import WebsiteLogo from "../../../public/Website Navbar Logo.jpg";
 import {getUser} from "../../features/Users/userSlice";
+import {getSeller} from "../../features/Sellers/sellerSlice";
 
 function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -15,9 +16,11 @@ function Navbar() {
   const {user, isLoading, isError, message} = useSelector(
     (state) => state.user
   );
+  const {seller} = useSelector((state) => state.seller);
 
   useEffect(() => {
     dispatch(getUser());
+    dispatch(getSeller());
   }, [dispatch]);
 
   const toggleDropdown = () => {
@@ -60,30 +63,71 @@ function Navbar() {
             {isDropdownOpen && (
               <div className="absolute right-0 w-48 bg-white rounded-lg shadow-lg dark:bg-gray-700 z-20 mt-72">
                 <div className="text-base list-none divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
-                  <div className="px-4 py-3">
-                    <span className="block text-sm text-gray-900 dark:text-white text-center">
-                      {user.name}
-                    </span>
-                    <span className="block text-sm text-gray-500 truncate dark:text-gray-400 text-center">
-                      {user.email}
-                    </span>
-                  </div>
                   <ul>
-                    <Link to="/loginUser">
-                      <span className="block text-gray-900 dark:text-white text-center  px-4 py-3 text-sm list-none divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600    hover:bg-gray-100 dark:hover:bg-gray-600  dark:hover:text-white">
-                        Login as A User
-                      </span>
-                    </Link>
+                    {user.name ? (
+                      <Link
+                        to="/"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                      >
+                        <span className="block text-sm text-gray-900 dark:text-white text-center">
+                          User - {user.name ? user.name : "Guest"}
+                        </span>
+                        <span className="block text-sm text-gray-500 truncate dark:text-gray-400 text-center">
+                          {user.email}
+                        </span>
+                      </Link>
+                    ) : (
+                      <ul>
+                        <Link to="/loginUser">
+                          <span className="block text-gray-900 dark:text-white text-center  px-4 py-3 text-sm list-none divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600    hover:bg-gray-100 dark:hover:bg-gray-600  dark:hover:text-white">
+                            Login as A User
+                          </span>
+                        </Link>
+                      </ul>
+                    )}
                   </ul>
                   <ul>
-                    <Link to="/loginSeller">
-                      <span className="block text-gray-900 dark:text-white text-center  px-4 py-3 text-sm list-none divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600    hover:bg-gray-100 dark:hover:bg-gray-600  dark:hover:text-white">
-                        Login as A Seller
-                      </span>
-                    </Link>
+                    {seller ? (
+                      <Link
+                        to="/sellerDashboard"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-whit"
+                      >
+                        <span className="block text-sm text-gray-900 dark:text-white text-center">
+                          Seller - {seller.fullName}
+                        </span>
+                        <span className="block text-sm text-gray-500 truncate dark:text-gray-400 text-center">
+                          {seller.businessEmail}
+                        </span>
+                      </Link>
+                    ) : (
+                      <ul>
+                        <ul>
+                          <Link to="/loginSeller">
+                            <span className="block text-gray-900 dark:text-white text-center px-4 py-3 text-sm list-none divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                              Login as A Seller
+                            </span>
+                          </Link>
+                        </ul>
+                      </ul>
+                    )}
                   </ul>
 
                   <ul className="py-2">
+                    {user.name ? (
+                      <>
+                        <li>
+                          <Link
+                            to="/usercart"
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                          >
+                            Cart
+                          </Link>
+                        </li>
+                      </>
+                    ) : (
+                      <></>
+                    )}
+
                     <li>
                       <Link
                         to="/"

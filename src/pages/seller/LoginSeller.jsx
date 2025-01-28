@@ -36,12 +36,13 @@ function LoginSeller() {
     if (isError && message) {
       toast.error(message);
     }
-    if (isSuccess || seller) {
+    const token = localStorage.getItem("Seller");
+    if (token || seller) {
       nav("/sellerDashboard");
     }
 
     dispatch(reset());
-  }, [seller, isError, isSuccess, message, dispatch]);
+  }, [seller, isError, isSuccess, message, dispatch, nav]);
 
   const loginSeller = (e) => {
     e.preventDefault();
@@ -51,6 +52,7 @@ function LoginSeller() {
     };
 
     dispatch(login(sellerData));
+    nav("/sellerDashboard");
     console.log("Seller Logged In Successfully");
   };
 

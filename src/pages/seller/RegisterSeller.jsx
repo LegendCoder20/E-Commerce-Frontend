@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useRef} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import {toast} from "react-toastify";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 //////////////////////////////////////////
 import {register, reset} from "../../features/Sellers/sellerSlice";
@@ -10,6 +10,7 @@ import WebsiteMainLogo from "../../../public/Website Main Logo.png";
 
 function RegisterSeller() {
   const nameRef = useRef();
+  const nav = useNavigate();
 
   const [sellerFormData, setSellerFormData] = useState({
     fullName: "",
@@ -77,6 +78,7 @@ function RegisterSeller() {
       };
 
       dispatch(register(sellerData));
+      nav("/sellerDashboard");
       console.log("Seller Registered Successfully");
     }
   };

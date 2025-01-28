@@ -1,5 +1,7 @@
 import React, {useEffect} from "react";
 import {useSelector, useDispatch} from "react-redux";
+
+///////////////////////////////////////
 import {getAllProducts} from "../../features/products/productSlice";
 import ProductCard from "./ProductCard";
 
@@ -23,7 +25,7 @@ const ProductCardsContainer = () => {
           <ProductCard key={product._id} product={product} />
         ))
       ) : (
-        <p>No products available.</p>
+        <p>No Products Available</p>
       )}
     </div>
   );

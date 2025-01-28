@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import {toast} from "react-toastify";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 //////////////////////////////////////////
 import {login, reset} from "../../features/Users/userSlice";
@@ -10,6 +10,7 @@ import WebsiteMainLogo from "../../../public/Website Main Logo.png";
 
 function LoginUser() {
   const emailRef = useRef();
+  const nav = useNavigate();
 
   const [userFormData, setUserFormData] = useState({
     email: "",
@@ -48,6 +49,7 @@ function LoginUser() {
       password,
     };
     dispatch(login(userData));
+    nav("/");
     console.log("User Logged In Successfully");
   };
 

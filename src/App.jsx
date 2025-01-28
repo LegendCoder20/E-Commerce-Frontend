@@ -11,6 +11,7 @@ import {
 import HomePage from "./pages/components/HomePage";
 import ProductDetail from "./pages/product/ProductDetail";
 import SellerDashboard from "./pages/seller/SellerDashboard";
+import Cart from "./pages/product/Cart";
 
 // Importing Forms
 import RegisterUser from "./pages/user/RegisterUser";
@@ -59,6 +60,9 @@ function App() {
 
         {/*🟡Add Product🟡*/}
         <Route path="/addProduct" element={<AddProduct />}></Route>
+
+        {/*🟡User Cart🟡*/}
+        <Route path="/userCart" element={<Cart />}></Route>
 
         {/*🟠OTHER ROUTES🟠*/}
         <Route path="/aboutme" element={<AboutMe />}></Route>

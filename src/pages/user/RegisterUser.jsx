@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import {toast} from "react-toastify";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 //////////////////////////////////////////
 import {register, reset} from "../../features/Users/userSlice";
@@ -10,6 +10,7 @@ import WebsiteMainLogo from "../../../public/Website Main Logo.png";
 
 function RegisterUser() {
   const nameRef = useRef();
+  const nav = useNavigate();
 
   const [userFormData, setUserFormData] = useState({
     name: "",
@@ -65,6 +66,7 @@ function RegisterUser() {
       };
 
       dispatch(register(userData));
+      nav("/");
       console.log("User Registered Successfully");
     }
   };

@@ -47,6 +47,39 @@ export const login = createAsyncThunk(
   }
 );
 
+// 🟨GET SELLER 🟨//
+export const getSeller = createAsyncThunk("/getSeller", async (_, thunkAPI) => {
+  try {
+    return await sellerService.getSeller();
+  } catch (err) {
+    const message =
+      err.response && err.response.data && err.response.data.message
+        ? err.response.data.message
+        : err.message || "An Error Occured while Getting Seller";
+
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
+// 🟨GET SELLER PRODUCTS🟨//
+export const getAllSellerProducts = createAsyncThunk(
+  "/seller/products",
+  async (_, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().seller.seller;
+
+      return await sellerService.getAllSellerProducts(token);
+    } catch (err) {
+      const message =
+        err.response && err.response.data && err.response.data.message
+          ? err.response.data.message
+          : err.message || "An error occurred in Getting Sellers Products";
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 //// REDUX ////
 
 const handlePending = (state) => {
@@ -86,6 +119,8 @@ export const sellerSlice = createSlice({
     const asyncActions = [
       {action: register, field: "seller"},
       {action: login, field: "seller"},
+      {action: getSeller, field: "seller"},
+      {action: getAllSellerProducts, field: "products"},
     ];
 
     asyncActions.forEach(({action, field}) => {
