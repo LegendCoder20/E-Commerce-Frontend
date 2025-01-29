@@ -1,11 +1,49 @@
-import React from "react";
-import {Link} from "react-router-dom";
+import React, {useEffect} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {toast} from "react-toastify";
+import axios from "axios";
 
 //////////////////////////////////////////
 import websiteLogo from "../../../public/Website Main Logo Transparent.png";
 import WebsiteMainLogo from "../../../public/Website Main Logo.png";
+import {createProduct} from "../../features/Sellers/sellerSlice";
 
 function AddProduct() {
+  const nav = useNavigate();
+
+  const dispatch = useDispatch();
+  const {product, isSuccess, isLoading, isError, seller} = useSelector(
+    (state) => state.seller
+  );
+
+  useEffect(() => {
+    if (isError && message) {
+      toast.error(message);
+    }
+    if (!seller) {
+      nav("/loginSeller");
+    }
+  }, [seller]);
+
+  const addProduct = (e) => {
+    e.preventDefault();
+
+    const productFormData = new FormData(e.target);
+    const productData = {
+      name: productFormData.get("name"),
+      description: productFormData.get("description"),
+      price: productFormData.get("price"),
+      quantity: productFormData.get("quantity"),
+      category: productFormData.get("category"),
+      image: productFormData.get("image"),
+    };
+
+    dispatch(createProduct(productData));
+
+    nav("/sellerDashboard");
+  };
+
   return (
     <React.Fragment>
       <div
@@ -41,7 +79,7 @@ function AddProduct() {
             <h2 className="text-center text-2xl font-bold text-black mb-6 rounded-lg pt-1 pb-2">
               Add New Product
             </h2>
-            <form method="POST" className="space-y-4">
+            <form method="POST" className="space-y-4 " onSubmit={addProduct}>
               <div>
                 <label
                   htmlFor="productName"
@@ -51,7 +89,7 @@ function AddProduct() {
                 </label>
                 <input
                   type="text"
-                  name="productName"
+                  name="name"
                   id="productName"
                   //   value={fullName}
                   // ref={nameRef}
@@ -140,9 +178,10 @@ function AddProduct() {
                   Upload File
                 </label>
                 <input
-                  class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50  focus:outline-none "
+                  className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50  focus:outline-none "
                   id="file_input"
                   type="file"
+                  name="image"
                 />
               </div>
               <div>

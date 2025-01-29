@@ -80,6 +80,25 @@ export const getAllSellerProducts = createAsyncThunk(
   }
 );
 
+// 🟨CREATE PRODUCT🟨//
+export const createProduct = createAsyncThunk(
+  "/seller/createProduct",
+  async (productData, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("Seller");
+
+      return await sellerService.createProduct(productData, token);
+    } catch (err) {
+      const message =
+        err.response && err.response.data && err.response.data.message
+          ? err.response.data.message
+          : err.message || "An error occurred in Getting Sellers Products";
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 //// REDUX ////
 
 const handlePending = (state) => {
@@ -121,6 +140,7 @@ export const sellerSlice = createSlice({
       {action: login, field: "seller"},
       {action: getSeller, field: "seller"},
       {action: getAllSellerProducts, field: "products"},
+      {action: createProduct, field: "product"},
     ];
 
     asyncActions.forEach(({action, field}) => {

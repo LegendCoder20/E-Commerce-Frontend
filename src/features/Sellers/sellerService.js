@@ -45,5 +45,29 @@ const getAllSellerProducts = async (token) => {
   return response.data.products;
 };
 
-const sellerService = {register, login, getSeller, getAllSellerProducts};
+const createProduct = async (productData, token) => {
+  try {
+    const response = await axios.post(`${sellerAPI_URL}/create`, productData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    console.log(response.data); // Log the response to check what you're getting
+
+    return response.data.product || response.data.products; // Adjust depending on the API response structure
+  } catch (error) {
+    console.error("Error creating product:", error.response || error.message);
+    throw error; // Re-throw the error to handle it elsewhere if needed
+  }
+};
+
+const sellerService = {
+  register,
+  login,
+  getSeller,
+  getAllSellerProducts,
+  createProduct,
+};
 export default sellerService;
