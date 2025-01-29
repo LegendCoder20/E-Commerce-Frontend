@@ -7,8 +7,6 @@ import {getAllSellerProducts} from "../../features/Sellers/sellerSlice";
 import SellerCard from "./SellerCard";
 
 function SellerDashboard() {
-  const [open, setOpen] = useState(false);
-
   const dispatch = useDispatch();
   const {products, isLoading, isError, message} = useSelector(
     (state) => state.seller
@@ -30,7 +28,7 @@ function SellerDashboard() {
   return (
     <>
       {/* Add Recipe Button */}
-      <div className="add-recipe-btn text-center pt-6 bg-lightest-grey">
+      <div className="add-recipe-btn text-center pt-3 bg-lightest-grey">
         <Link to="/addProduct">
           <button
             type="button"
@@ -40,15 +38,22 @@ function SellerDashboard() {
           </button>
         </Link>
       </div>
-      <div className=" grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4 place-items-start min-h-screen">
-        {products.length > 0 ? (
-          products.map((product) => (
-            <SellerCard key={product._id} product={product} />
-          ))
-        ) : (
-          <p>No Products Available</p>
-        )}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0 md:space-x-4 pl-4 ">
+        <div className="flex-1 flex items-center space-x-2">
+          <h5>
+            <span className="text-gray-500">All Products:</span>
+            <span className="text-black">123456</span>
+          </h5>
+        </div>
       </div>
+
+      {products.length > 0 ? (
+        products.map((product) => (
+          <SellerCard key={product._id} product={product} />
+        ))
+      ) : (
+        <p>No Products Available</p>
+      )}
     </>
   );
 }

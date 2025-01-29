@@ -19,6 +19,7 @@ import LoginUser from "./pages/user/LoginUser";
 import RegisterSeller from "./pages/seller/RegisterSeller";
 import LoginSeller from "./pages/seller/LoginSeller";
 import AddProduct from "./pages/product/AddProduct";
+import UpdateProduct from "./pages/product/UpdateProduct";
 
 // Importing Other Components
 import Navbar from "./pages/components/Navbar";
@@ -50,16 +51,16 @@ function App() {
         <Route path="/" element={<HomePage />}></Route>
 
         {/*🟡Product Details Card🟡*/}
-        <Route
-          path="/productDetails/:id"
-          element={<ProductDetail></ProductDetail>}
-        ></Route>
+        <Route path="/productDetails/:id" element={<ProductDetail />}></Route>
 
         {/*🟡Seller Dashboard🟡*/}
         <Route path="/sellerDashboard" element={<SellerDashboard />}></Route>
 
         {/*🟡Add Product🟡*/}
         <Route path="/addProduct" element={<AddProduct />}></Route>
+
+        {/*🟡Update Product🟡*/}
+        <Route path="/updateProduct/:id" element={<UpdateProduct />}></Route>
 
         {/*🟡User Cart🟡*/}
         <Route path="/userCart" element={<Cart />}></Route>
