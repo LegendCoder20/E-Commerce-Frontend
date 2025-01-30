@@ -23,8 +23,6 @@ function SellerDashboard() {
     return <div>Loading...</div>;
   }
 
-  // Your actual rendering logic here
-
   return (
     <>
       {/* Add Recipe Button */}
@@ -41,19 +39,48 @@ function SellerDashboard() {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0 md:space-x-4 pl-4 ">
         <div className="flex-1 flex items-center space-x-2">
           <h5>
-            <span className="text-gray-500">All Products:</span>
-            <span className="text-black">123456</span>
+            <span className="text-gray-500">Total Products:</span>
+            <span className="text-black"> {products.length}</span>
           </h5>
         </div>
       </div>
-
-      {products.length > 0 ? (
-        products.map((product) => (
-          <SellerCard key={product._id} product={product} />
-        ))
-      ) : (
-        <p>No Products Available</p>
-      )}
+      {/* Table */}
+      <section className="bg-gray-50 p-3 sm:p-5 antialiased">
+        <div className="mx-auto max-w-screen-2xl px-4 lg:px-12  ">
+          <div className="bg-white  relative shadow-md sm:rounded-lg overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:text-gray-400 ">
+                  <tr>
+                    <th scope="col" className="p-4">
+                      Product
+                    </th>
+                    <th scope="col" className="p-4">
+                      Category
+                    </th>
+                    <th scope="col" className="p-4">
+                      Ratings
+                    </th>
+                    <th scope="col" className="p-4">
+                      Sales
+                    </th>
+                    <th scope="col" className="p-4">
+                      Quantity
+                    </th>
+                  </tr>
+                </thead>
+                {products.length > 0 ? (
+                  products.map((product) => (
+                    <SellerCard key={product._id} product={product} />
+                  ))
+                ) : (
+                  <p>No Products Available</p>
+                )}
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

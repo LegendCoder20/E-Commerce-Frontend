@@ -1,14 +1,14 @@
 import React, {useState, useEffect} from "react";
-import {Link} from "react-router-dom";
-import {useParams} from "react-router-dom";
-
-//////////////////////////////////////////
-import websiteLogo from "../../../public/Website Main Logo Transparent.png";
-import WebsiteMainLogo from "../../../public/Website Main Logo.png";
-import {getProductDetails} from "../../features/products/productSlice";
+import {Link, useParams, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 
+//////////////////////////////////////////
+import WebsiteMainLogo from "../../../public/Website Main Logo.png";
+import {getProductDetails} from "../../features/products/productSlice";
+import {updateProduct} from "../../features/Sellers/sellerSlice";
+
 function UpdateProduct() {
+  const nav = useNavigate();
   const {id} = useParams();
   const dispatch = useDispatch();
 
@@ -41,10 +41,10 @@ function UpdateProduct() {
   }, [product]);
 
   const handleChange = (e) => {
-    setProductFormData({...product, [e.target.name]: e.target.value});
+    setProductFormData({...productFormData, [e.target.name]: e.target.value});
   };
 
-  const updateProduct = (e) => {
+  const update = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const productData = {
@@ -55,7 +55,9 @@ function UpdateProduct() {
       description: formData.get("description"),
     };
 
-    console.log(productData);
+    dispatch(updateProduct({productData, id: product._id}));
+
+    nav("/sellerDashboard");
   };
 
   return (
@@ -75,9 +77,9 @@ function UpdateProduct() {
           {/* Logo Section */}
           <div className="sm:w-1/2 flex justify-center items-center flex-col bg-white bg-opacity-40 backdrop-blur-md sm:rounded-r-sm rounded-xl text-center  sm:mb-0 mb-8 ">
             <img
-              src={product.image.url}
-              alt="Website Logo"
-              className="sm:h-60 sm:w-auto h-20 sm:block hidden "
+              src={product.image && product.image.url}
+              alt={product.name}
+              className="sm:h-72 sm:w-auto h-20 sm:block hidden "
             />
             <Link to="/">
               <img
@@ -93,7 +95,7 @@ function UpdateProduct() {
             <h2 className="text-center text-2xl font-bold text-black mb-6 rounded-lg pt-1 pb-2">
               Update Product
             </h2>
-            <form method="POST" className="space-y-4 " onSubmit={updateProduct}>
+            <form method="POST" className="space-y-4 " onSubmit={update}>
               <div>
                 <label
                   htmlFor="productName"

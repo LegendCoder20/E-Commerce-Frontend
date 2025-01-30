@@ -45,22 +45,41 @@ const getAllSellerProducts = async (token) => {
   return response.data.products;
 };
 
+//🟨CREATE SELLER PRODUCT🟨//
 const createProduct = async (productData, token) => {
-  try {
-    const response = await axios.post(`${sellerAPI_URL}/create`, productData, {
+  const response = await axios.post(`${sellerAPI_URL}/create`, productData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data.products || response.data.product;
+};
+
+//🟨UPDATE SELLER PRODUCT🟨//
+const updateProduct = async (productData, id, token) => {
+  const response = await axios.put(
+    `${sellerAPI_URL}/update/${id}`,
+    productData,
+    {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
       },
-    });
+    }
+  );
 
-    console.log(response.data); // Log the response to check what you're getting
+  return response.data.product;
+};
 
-    return response.data.product || response.data.products; // Adjust depending on the API response structure
-  } catch (error) {
-    console.error("Error creating product:", error.response || error.message);
-    throw error; // Re-throw the error to handle it elsewhere if needed
-  }
+//🟨DELETE SELLER PRODUCT🟨//
+const deleteProduct = async (id, token) => {
+  const response = await axios.delete(`${sellerAPI_URL}/${id}`, {
+    headers: {Authorization: `Bearer ${token}`},
+  });
+
+  return response.data.products;
 };
 
 const sellerService = {
@@ -69,5 +88,7 @@ const sellerService = {
   getSeller,
   getAllSellerProducts,
   createProduct,
+  updateProduct,
+  deleteProduct,
 };
 export default sellerService;

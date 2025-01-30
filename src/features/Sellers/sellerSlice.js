@@ -66,7 +66,7 @@ export const getAllSellerProducts = createAsyncThunk(
   "/seller/products",
   async (_, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().seller.seller;
+      const token = localStorage.getItem("Seller");
 
       return await sellerService.getAllSellerProducts(token);
     } catch (err) {
@@ -92,7 +92,45 @@ export const createProduct = createAsyncThunk(
       const message =
         err.response && err.response.data && err.response.data.message
           ? err.response.data.message
-          : err.message || "An error occurred in Getting Sellers Products";
+          : err.message || "An error occurred while Creating Products";
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+// 🟨UPDATE PRODUCT🟨//
+export const updateProduct = createAsyncThunk(
+  "/seller/updateProduct",
+  async ({productData, id}, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("Seller");
+
+      return await sellerService.updateProduct(productData, id, token);
+    } catch (err) {
+      const message =
+        err.response && err.response.data && err.response.data.message
+          ? err.response.data.message
+          : err.message || "An error occurred while Updating Products";
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+// 🟨DELETE PRODUCT🟨//
+export const deleteProduct = createAsyncThunk(
+  "/delete",
+  async (id, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("Seller");
+
+      return await sellerService.deleteProduct(id, token);
+    } catch (err) {
+      const message =
+        err.response && err.response.data && err.response.data.message
+          ? err.response.data.message
+          : err.message || "An error occurred while Deleting Products";
 
       return thunkAPI.rejectWithValue(message);
     }
@@ -141,6 +179,8 @@ export const sellerSlice = createSlice({
       {action: getSeller, field: "seller"},
       {action: getAllSellerProducts, field: "products"},
       {action: createProduct, field: "product"},
+      {action: updateProduct, field: "product"},
+      {action: deleteProduct, field: "products"},
     ];
 
     asyncActions.forEach(({action, field}) => {
