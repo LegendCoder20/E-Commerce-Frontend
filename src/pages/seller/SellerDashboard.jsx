@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useMemo} from "react";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 
@@ -18,6 +18,12 @@ function SellerDashboard() {
       dispatch(getAllSellerProducts(token));
     }
   }, [dispatch, products.length]);
+
+  const memoizedProducts = useMemo(() => {
+    return products.map((product) => (
+      <SellerCard key={product._id} product={product} />
+    ));
+  }, [products]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -70,11 +76,13 @@ function SellerDashboard() {
                   </tr>
                 </thead>
                 {products.length > 0 ? (
-                  products.map((product) => (
-                    <SellerCard key={product._id} product={product} />
-                  ))
+                  <>{memoizedProducts}</>
                 ) : (
-                  <p>No Products Available</p>
+                  <tr>
+                    <td colSpan="5" className="text-center">
+                      No Products Available
+                    </td>
+                  </tr>
                 )}
               </table>
             </div>

@@ -64,9 +64,6 @@ export const getUser = createAsyncThunk("/getUser", async (_, thunkAPI) => {
 //🟨GET USER CART FEATURE🟨//
 export const getCart = createAsyncThunk("/getCart", async (_, thunkAPI) => {
   try {
-    const aa = userService.getCart();
-    console.log("Slice", aa);
-
     return await userService.getCart();
   } catch (err) {
     const message =

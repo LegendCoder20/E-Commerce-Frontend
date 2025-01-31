@@ -54,10 +54,6 @@ const getCart = async () => {
       },
     });
 
-    console.log("Token from Sevice", token);
-
-    console.log("User Service", response.data);
-
     return response.data.cartProducts;
   }
 };
