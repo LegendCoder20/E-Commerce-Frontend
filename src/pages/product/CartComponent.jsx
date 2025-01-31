@@ -18,12 +18,18 @@ function CartComponent() {
   const memoizedCartItems = useMemo(() => {
     if (Array.isArray(cart)) {
       return cart.flatMap((cartItems) =>
-        cartItems.products.map((product) => (
-          <Cart key={product.product_id._id} product={product} />
-        ))
+        cartItems.products.map((product) =>
+          product.product_id ? (
+            <Cart key={product.product_id._id} product={product} />
+          ) : null
+        )
       );
     }
   }, [cart]);
+
+  const cartProductLength = Array.isArray(cart)
+    ? cart.map((cartItems) => cartItems.products.length)
+    : 0;
 
   return (
     <section className="bg-white py-8 antialiased md:py-16">
@@ -35,7 +41,12 @@ function CartComponent() {
         <div className="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
           {/* Cart Items */}
           <div className="w-full lg:max-w-2xl xl:max-w-4xl lg:flex-col">
-            {cart.length > 0 ? memoizedCartItems : <p>No Products in Cart</p>}
+            {/* {cart.length > 0 ? memoizedCartItems : <p>Loading</p>} */}
+            {cartProductLength > 0 ? (
+              memoizedCartItems
+            ) : (
+              <p>Your Cart is Empty </p>
+            )}
           </div>
 
           {/* Order Summary */}

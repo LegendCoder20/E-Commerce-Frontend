@@ -92,6 +92,23 @@ export const addToCart = createAsyncThunk(
   }
 );
 
+//🟨DELETE PRODUCT FROM THE CART FEATURE🟨//
+export const deleteProduct = createAsyncThunk(
+  "/delete",
+  async (product_id, thunkAPI) => {
+    try {
+      return await userService.deleteProduct(product_id);
+    } catch (err) {
+      const message =
+        err.response && err.response.data && err.response.data.message
+          ? err.response.data.message
+          : err.message || "An Error Occured while Adding Data to Cart";
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 //// REDUX ////
 
 const handlePending = (state) => {
@@ -135,6 +152,7 @@ export const userSlice = createSlice({
       {action: getUser, field: "user"},
       {action: getCart, field: "cart"},
       {action: addToCart, field: "cart"},
+      {action: deleteProduct, field: "cart"},
     ];
 
     asyncActions.forEach(({action, field}) => {

@@ -1,9 +1,17 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 
 ////////////////////////
+import {deleteProduct, getCart} from "../../features/Users/userSlice";
 
 const Cart = React.memo(({product}) => {
+  const dispatch = useDispatch();
+  const deleteCartProduct = (e) => {
+    e.preventDefault();
+    dispatch(deleteProduct(product.product_id._id));
+  };
+
   return (
     <>
       <div className="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl ">
@@ -24,7 +32,7 @@ const Cart = React.memo(({product}) => {
                 <div className="text-center md:order-4 md:w-32">
                   <p className="font-semibold">Price</p>
                   <p className="text-base font-bold text-black">
-                    ₹{product.product_id.price}
+                    ₹{product.product_id.price * product.quantity}
                   </p>
                 </div>
               </div>
@@ -43,6 +51,7 @@ const Cart = React.memo(({product}) => {
                 <div className="flex items-center gap-4">
                   <button
                     type="button"
+                    onClick={deleteCartProduct}
                     className="inline-flex items-center text-sm font-medium text-red-600 hover:underline"
                   >
                     <svg

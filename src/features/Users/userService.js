@@ -73,12 +73,31 @@ const addToCart = async (cartData) => {
   }
 };
 
+//🟨DELETE PRODUCT FROM THE CART FEATURE🟨//
+const deleteProduct = async (product_id) => {
+  const token = localStorage.getItem("User");
+
+  if (token) {
+    const response = await axios.delete(
+      `${CART_API_URL}/remove/${product_id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data.message;
+  }
+};
+
 const userService = {
   register,
   login,
   getUser,
   getCart,
   addToCart,
+  deleteProduct,
 };
 
 export default userService;
