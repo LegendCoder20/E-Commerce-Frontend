@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const API_URL = "http://localhost:5000/api/user";
+const CART_API_URL = "http://localhost:5000/api/users/cart";
 
 //🟨REGISTER USER FEATURE🟨//
 
@@ -40,10 +41,32 @@ const getUser = async () => {
 
 //🟨LOGOUT USER FEATURE🟨//
 
+//// 🟩🟩 CART FEATURES 🟩🟩 ////
+
+//🟨GET CART FEATURE🟨//
+const getCart = async () => {
+  const token = localStorage.getItem("User");
+
+  if (token) {
+    const response = await axios.get(`${CART_API_URL}/`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    console.log("Token from Sevice", token);
+
+    console.log("User Service", response.data);
+
+    return response.data.cartProducts;
+  }
+};
+
 const userService = {
   register,
   login,
   getUser,
+  getCart,
 };
 
 export default userService;

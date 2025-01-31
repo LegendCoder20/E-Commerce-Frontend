@@ -61,6 +61,23 @@ export const getUser = createAsyncThunk("/getUser", async (_, thunkAPI) => {
   }
 });
 
+//🟨GET USER CART FEATURE🟨//
+export const getCart = createAsyncThunk("/getCart", async (_, thunkAPI) => {
+  try {
+    const aa = userService.getCart();
+    console.log("Slice", aa);
+
+    return await userService.getCart();
+  } catch (err) {
+    const message =
+      err.response && err.response.data && err.response.data.message
+        ? err.response.data.message
+        : err.message || "An Error Occured while Getting User";
+
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
 //// REDUX ////
 
 const handlePending = (state) => {
@@ -102,6 +119,7 @@ export const userSlice = createSlice({
       {action: register, field: "user"},
       {action: login, field: "user"},
       {action: getUser, field: "user"},
+      {action: getCart, field: "cart"},
     ];
 
     asyncActions.forEach(({action, field}) => {

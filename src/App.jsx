@@ -11,7 +11,7 @@ import {
 import HomePage from "./pages/components/HomePage";
 import ProductDetail from "./pages/product/ProductDetail";
 import SellerDashboard from "./pages/seller/SellerDashboard";
-import Cart from "./pages/product/Cart";
+import CartComponent from "./pages/product/CartComponent";
 
 // Importing Forms
 import RegisterUser from "./pages/user/RegisterUser";
@@ -63,7 +63,7 @@ function App() {
         <Route path="/updateProduct/:id" element={<UpdateProduct />}></Route>
 
         {/*🟡User Cart🟡*/}
-        <Route path="/userCart" element={<Cart />}></Route>
+        <Route path="/userCart" element={<CartComponent />}></Route>
 
         {/*🟠OTHER ROUTES🟠*/}
         <Route path="/aboutme" element={<AboutMe />}></Route>
