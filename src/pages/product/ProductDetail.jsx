@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
+import {toast} from "react-toastify";
 
 /////////////////////////////////////////////
 import QuantityComponent from "../small components/QuantityComponent";
 import {getProductDetails} from "../../features/products/productSlice";
+import {addToCart} from "../../features/Users/userSlice";
 
 function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
@@ -15,8 +17,23 @@ function ProductDetail() {
   );
 
   useEffect(() => {
-    dispatch(getProductDetails(id));
-  }, [dispatch, id]);
+    if (quantity === 1) {
+      dispatch(getProductDetails(id));
+    }
+  }, [dispatch, id, quantity]);
+
+  const maxStock = product.quantity;
+
+  const addProductToCart = (e) => {
+    e.preventDefault();
+    const cartData = {
+      product_id: id,
+      quantity,
+    };
+
+    dispatch(addToCart(cartData));
+    toast.success("Product Added to Cart Successfully");
+  };
 
   return (
     <React.Fragment>
@@ -60,11 +77,15 @@ function ProductDetail() {
               <QuantityComponent
                 quantity={quantity}
                 setQuantity={setQuantity}
+                maxStock={maxStock}
               ></QuantityComponent>
 
               {/* Add to Cart */}
               <div className="mt-6">
-                <button className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition">
+                <button
+                  onClick={addProductToCart}
+                  className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition"
+                >
                   Add to Cart
                 </button>
                 <p className="text-black mt-14 h-7 bg-orange-100 w-56 text-center text-lg font-medium rounded-md sm:mx-0 mx-auto">

@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 
-function QuantityComponent({quantity, setQuantity}) {
+function QuantityComponent({quantity, setQuantity, maxStock}) {
   const handleIncrement = () => {
-    setQuantity((prev) => prev + 1);
+    setQuantity((prev) => (prev < maxStock ? prev + 1 : prev));
   };
 
   const handleDecrement = () => {

@@ -75,6 +75,23 @@ export const getCart = createAsyncThunk("/getCart", async (_, thunkAPI) => {
   }
 });
 
+//🟨ADD TO CART FEATURE🟨//
+export const addToCart = createAsyncThunk(
+  "/user/addToCart",
+  async (cartData, thunkAPI) => {
+    try {
+      return await userService.addToCart(cartData);
+    } catch (err) {
+      const message =
+        err.response && err.response.data && err.response.data.message
+          ? err.response.data.message
+          : err.message || "An Error Occured while Adding Data to Cart";
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 //// REDUX ////
 
 const handlePending = (state) => {
@@ -117,6 +134,7 @@ export const userSlice = createSlice({
       {action: login, field: "user"},
       {action: getUser, field: "user"},
       {action: getCart, field: "cart"},
+      {action: addToCart, field: "cart"},
     ];
 
     asyncActions.forEach(({action, field}) => {

@@ -16,11 +16,13 @@ function CartComponent() {
   }, [dispatch]);
 
   const memoizedCartItems = useMemo(() => {
-    return cart.flatMap((cartItems) =>
-      cartItems.products.map((product) => (
-        <Cart key={product.product_id._id} product={product} />
-      ))
-    );
+    if (Array.isArray(cart)) {
+      return cart.flatMap((cartItems) =>
+        cartItems.products.map((product) => (
+          <Cart key={product.product_id._id} product={product} />
+        ))
+      );
+    }
   }, [cart]);
 
   return (

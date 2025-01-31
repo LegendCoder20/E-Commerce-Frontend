@@ -58,11 +58,27 @@ const getCart = async () => {
   }
 };
 
+//🟨ADD TO CART FEATURE🟨//
+const addToCart = async (cartData) => {
+  const token = localStorage.getItem("User");
+
+  if (token) {
+    const response = await axios.post(`${CART_API_URL}/add`, cartData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  }
+};
+
 const userService = {
   register,
   login,
   getUser,
   getCart,
+  addToCart,
 };
 
 export default userService;
