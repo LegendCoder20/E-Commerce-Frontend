@@ -21,6 +21,11 @@ const login = async (sellerData) => {
   return response.data;
 };
 
+//🟨LOGOUT SELLER🟨//
+const logoutSeller = async () => {
+  localStorage.removeItem("Seller");
+};
+
 //🟨GET SELLER PRODUCTS🟨//
 const getSeller = async () => {
   const token = localStorage.getItem("Seller");
@@ -85,6 +90,7 @@ const deleteProduct = async (id, token) => {
 const sellerService = {
   register,
   login,
+  logoutSeller,
   getSeller,
   getAllSellerProducts,
   createProduct,

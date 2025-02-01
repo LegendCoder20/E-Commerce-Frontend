@@ -47,6 +47,11 @@ export const login = createAsyncThunk(
   }
 );
 
+// 🟨LOGOUT SELLER FEATURE🟨//
+export const logoutSeller = createAsyncThunk("/seller/logout", async () => {
+  await sellerService.logoutSeller();
+});
+
 // 🟨GET SELLER 🟨//
 export const getSeller = createAsyncThunk("/getSeller", async (_, thunkAPI) => {
   try {
@@ -176,6 +181,7 @@ export const sellerSlice = createSlice({
     const asyncActions = [
       {action: register, field: "seller"},
       {action: login, field: "seller"},
+      {action: logoutSeller, field: "seller"},
       {action: getSeller, field: "seller"},
       {action: getAllSellerProducts, field: "products"},
       {action: createProduct, field: "product"},

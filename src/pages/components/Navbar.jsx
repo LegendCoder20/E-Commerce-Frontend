@@ -1,17 +1,17 @@
 import React, {useState, useEffect} from "react";
-import {Link, useLocation} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 
 /////////////////////////////
 import HeaderTitle from "../small components/HeaderTitle";
 import WebsiteLogo from "../../../public/Website Navbar Logo.jpg";
-import {getUser} from "../../features/Users/userSlice";
-import {getSeller} from "../../features/Sellers/sellerSlice";
-import {getCart} from "../../features/Users/userSlice";
+import {getUser, getCart, logoutUser} from "../../features/Users/userSlice";
+import {getSeller, logoutSeller} from "../../features/Sellers/sellerSlice";
 
 function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const nav = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -21,17 +21,21 @@ function Navbar() {
   const {seller} = useSelector((state) => state.seller);
 
   const location = useLocation();
+  const sellerRoutes = ["/sellerDashboard", "/addProduct", "/updateProduct"];
+  const userRoutes = [
+    "/",
+    "/productDetails",
+    "/userCart",
+    "/aboutme",
+    "/contactme",
+  ];
   useEffect(() => {
     dispatch(getUser());
     dispatch(getSeller());
 
-    const sellerRoutes = ["/sellerDashboard", "/addProduct", "/updateProduct"];
-
     if (!sellerRoutes.includes(location.pathname)) {
       dispatch(getCart());
     }
-
-    // dispatch(getCart());
   }, [dispatch, cart]);
 
   const toggleDropdown = () => {
@@ -43,8 +47,20 @@ function Navbar() {
   };
 
   const cartProductLength = Array.isArray(cart)
-    ? cart.map((cartItems) => cartItems.products.length)
+    ? cart.reduce(
+        (total, cartItem) => total + (cartItem?.products?.length || 0),
+        0
+      )
     : 0;
+
+  const logOut = () => {
+    if (userRoutes.includes(location.pathname)) {
+      dispatch(logoutUser());
+      window.location.reload();
+    } else if (sellerRoutes.includes(location.pathname)) {
+      dispatch(logoutSeller()).then(() => nav("/"));
+    }
+  };
 
   return (
     <React.Fragment>
@@ -155,6 +171,7 @@ function Navbar() {
                     <li>
                       <Link
                         to="/"
+                        onClick={logOut}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                       >
                         Sign out

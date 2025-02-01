@@ -40,6 +40,9 @@ const getUser = async () => {
 };
 
 //🟨LOGOUT USER FEATURE🟨//
+const logoutUser = async () => {
+  localStorage.removeItem("User");
+};
 
 //// 🟩🟩 CART FEATURES 🟩🟩 ////
 
@@ -94,6 +97,7 @@ const deleteProduct = async (product_id) => {
 const userService = {
   register,
   login,
+  logoutUser,
   getUser,
   getCart,
   addToCart,
