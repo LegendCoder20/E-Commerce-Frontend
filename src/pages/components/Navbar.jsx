@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 
 /////////////////////////////
@@ -7,21 +7,32 @@ import HeaderTitle from "../small components/HeaderTitle";
 import WebsiteLogo from "../../../public/Website Navbar Logo.jpg";
 import {getUser} from "../../features/Users/userSlice";
 import {getSeller} from "../../features/Sellers/sellerSlice";
+import {getCart} from "../../features/Users/userSlice";
 
 function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const dispatch = useDispatch();
-  const {user, isLoading, isError, message} = useSelector(
+
+  const {user, cart, isLoading, isError, message} = useSelector(
     (state) => state.user
   );
   const {seller} = useSelector((state) => state.seller);
 
+  const location = useLocation();
   useEffect(() => {
     dispatch(getUser());
     dispatch(getSeller());
-  }, [dispatch]);
+
+    const sellerRoutes = ["/sellerDashboard", "/addProduct", "/updateProduct"];
+
+    if (!sellerRoutes.includes(location.pathname)) {
+      dispatch(getCart());
+    }
+
+    // dispatch(getCart());
+  }, [dispatch, cart]);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -30,6 +41,10 @@ function Navbar() {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const cartProductLength = Array.isArray(cart)
+    ? cart.map((cartItems) => cartItems.products.length)
+    : 0;
 
   return (
     <React.Fragment>
@@ -120,7 +135,7 @@ function Navbar() {
                             to="/usercart"
                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                           >
-                            Cart
+                            Cart {cartProductLength}
                           </Link>
                         </li>
                       </>
