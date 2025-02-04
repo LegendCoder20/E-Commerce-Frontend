@@ -32,6 +32,12 @@ const Cart = React.memo(({product}) => {
                 <div className="text-center md:order-4 md:w-32">
                   <p className="font-semibold">Price</p>
                   <p className="text-base font-bold text-black">
+                    ₹{product.product_id.price}
+                  </p>
+                </div>
+                <div className="text-center md:order-4 md:w-16">
+                  <p className="font-semibold">Total</p>
+                  <p className="text-base font-bold text-black">
                     ₹{product.product_id.price * product.quantity}
                   </p>
                 </div>

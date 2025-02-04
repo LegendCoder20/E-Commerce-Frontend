@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo} from "react";
+import React, {useState, useEffect, useMemo} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 
@@ -6,6 +6,7 @@ import Cart from "./Cart";
 import {getCart} from "../../features/Users/userSlice";
 
 function CartComponent() {
+  const [total, setTotal] = useState(0);
   const dispatch = useDispatch();
   const {cart, isLoading, isError, message} = useSelector(
     (state) => state.user
@@ -14,6 +15,26 @@ function CartComponent() {
   useEffect(() => {
     dispatch(getCart());
   }, [dispatch]);
+
+  useEffect(() => {
+    const fetchTotalPrice = async () => {
+      const cartData = await dispatch(getCart());
+      const cartDataPrice = cartData.payload[0].products.map((product) => {
+        return {
+          price: product.product_id.price * product.quantity,
+        };
+      });
+
+      const total = cartDataPrice.reduce(
+        (acc, product) => acc + product.price,
+        0
+      );
+
+      setTotal(total);
+    };
+
+    fetchTotalPrice();
+  }, []);
 
   const memoizedCartItems = useMemo(() => {
     if (Array.isArray(cart)) {
@@ -63,7 +84,7 @@ function CartComponent() {
                       Original price
                     </dt>
                     <dd className="text-base font-medium text-gray-900">
-                      $7,592.00
+                      ₹{total}
                     </dd>
                   </dl>
                 </div>
@@ -71,7 +92,7 @@ function CartComponent() {
                 <dl className="flex items-center justify-between gap-4 border-t border-gray-200 pt-2">
                   <dt className="text-base font-bold text-gray-900">Total</dt>
                   <dd className="text-base font-bold text-gray-900">
-                    $8,191.00
+                    ₹{total}
                   </dd>
                 </dl>
               </div>
