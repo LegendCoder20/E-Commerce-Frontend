@@ -26,17 +26,19 @@ const login = async (userData) => {
 const getUser = async () => {
   const token = localStorage.getItem("User");
 
-  if (token) {
+  if (!token) return "Guest User"; // ✅ Avoid unnecessary API calls
+
+  try {
     const response = await axios.get(`${API_URL}/getuser`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-
     return response.data.user;
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    return "Guest User"; // ✅ Prevent crashing
   }
-
-  return "Guest User";
 };
 
 //🟨LOGOUT USER FEATURE🟨//

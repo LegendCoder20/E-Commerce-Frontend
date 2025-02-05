@@ -8,8 +8,9 @@ import {deleteProduct} from "../../features/Users/userSlice";
 const Cart = React.memo(({product}) => {
   const dispatch = useDispatch();
   const deleteCartProduct = (e) => {
-    e.preventDefault();
     dispatch(deleteProduct(product.product_id._id));
+
+    window.location.reload();
   };
 
   return (

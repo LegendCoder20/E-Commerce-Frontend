@@ -11,6 +11,7 @@ import {getSeller, logoutSeller} from "../../features/Sellers/sellerSlice";
 function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [cartProductLength, setCartProductLength] = useState(0); // state to track cart length
   const nav = useNavigate();
 
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ function Navbar() {
     "/aboutme",
     "/contactme",
   ];
+
   useEffect(() => {
     dispatch(getUser());
     dispatch(getSeller());
@@ -36,7 +38,18 @@ function Navbar() {
     if (!sellerRoutes.includes(location.pathname)) {
       dispatch(getCart());
     }
-  }, [dispatch, cart]);
+  }, [dispatch, location]);
+
+  useEffect(() => {
+    // Update cart product length when the cart changes
+    const productLength = Array.isArray(cart)
+      ? cart.reduce(
+          (total, cartItem) => total + (cartItem?.products?.length || 0),
+          0
+        )
+      : 0;
+    setCartProductLength(productLength);
+  }, [cart]); // This will run whenever the cart changes
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -45,13 +58,6 @@ function Navbar() {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
-  const cartProductLength = Array.isArray(cart)
-    ? cart.reduce(
-        (total, cartItem) => total + (cartItem?.products?.length || 0),
-        0
-      )
-    : 0;
 
   const logOut = () => {
     if (userRoutes.includes(location.pathname)) {
@@ -132,31 +138,25 @@ function Navbar() {
                       </Link>
                     ) : (
                       <ul>
-                        <ul>
-                          <Link to="/loginSeller">
-                            <span className="block text-gray-900 dark:text-white text-center px-4 py-3 text-sm list-none divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                              Login as A Seller
-                            </span>
-                          </Link>
-                        </ul>
+                        <Link to="/loginSeller">
+                          <span className="block text-gray-900 dark:text-white text-center px-4 py-3 text-sm list-none divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                            Login as A Seller
+                          </span>
+                        </Link>
                       </ul>
                     )}
                   </ul>
 
                   <ul className="py-2">
-                    {user.name ? (
-                      <>
-                        <li>
-                          <Link
-                            to="/usercart"
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                          >
-                            Cart {cartProductLength}
-                          </Link>
-                        </li>
-                      </>
-                    ) : (
-                      <></>
+                    {user.name && (
+                      <li>
+                        <Link
+                          to="/usercart"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                        >
+                          Cart {cartProductLength}
+                        </Link>
+                      </li>
                     )}
 
                     <li>
@@ -181,33 +181,6 @@ function Navbar() {
                 </div>
               </div>
             )}
-
-            {/* Hamburger Menu */}
-            <button
-              data-collapse-toggle="navbar-user"
-              type="button"
-              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-              onClick={toggleMenu}
-              aria-controls="navbar-user"
-              aria-expanded={isMenuOpen ? "true" : "false"}
-            >
-              <span className="sr-only">Open main menu</span>
-              <svg
-                className="w-5 h-5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 17 14"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M1 1h15M1 7h15M1 13h15"
-                />
-              </svg>
-            </button>
           </div>
 
           {/* Navigation Links */}
@@ -245,7 +218,7 @@ function Navbar() {
               </li>
               <li>
                 <Link
-                  to="/pricing"
+                  to="/usercart"
                   className="relative block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-teal-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 md:dark:text-teal-300 md:text-lg after:content-[''] after:block after:h-1 after:bg-teal-400 after:absolute after:bottom-0 after:left-0 after:w-full after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100"
                 >
                   Pricing
@@ -253,9 +226,32 @@ function Navbar() {
               </li>
             </ul>
           </div>
+
+          <button
+            data-collapse-toggle="navbar-user"
+            type="button"
+            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            onClick={toggleMenu}
+          >
+            <span className="sr-only">Open main menu</span>
+            <svg
+              className="w-5 h-5"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 17 14"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M1 1h15M1 7h15M1 13h15"
+              />
+            </svg>
+          </button>
         </div>
       </nav>
-      <HeaderTitle />
     </React.Fragment>
   );
 }

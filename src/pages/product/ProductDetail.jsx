@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {useParams} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 
 /////////////////////////////////////////////
@@ -10,6 +10,7 @@ import {addToCart} from "../../features/Users/userSlice";
 
 function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
+  const nav = useNavigate();
   const {id} = useParams();
   const dispatch = useDispatch();
   const {product, isLoading, isSuccess, isError, message} = useSelector(
@@ -33,6 +34,10 @@ function ProductDetail() {
 
     dispatch(addToCart(cartData));
     toast.success("Product Added to Cart Successfully");
+
+    setTimeout(() => {
+      nav("/");
+    }, 1000);
   };
 
   return (
