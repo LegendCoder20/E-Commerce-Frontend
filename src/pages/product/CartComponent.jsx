@@ -1,7 +1,8 @@
 import React, {useState, useEffect, useMemo} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Link} from "react-router-dom";
-
+import axios from "axios";
+/////////////////////////////////////////////
 import Cart from "./Cart";
 import {getCart} from "../../features/Users/userSlice";
 
@@ -49,8 +50,43 @@ function CartComponent() {
   }, [cart]);
 
   const cartProductLength = Array.isArray(cart)
-    ? cart.map((cartItems) => cartItems.products.length)
+    ? cart.reduce((acc, cartItems) => acc + cartItems.products.length, 0)
     : 0;
+
+  const checkout = async (amount) => {
+    const {
+      data: {order},
+    } = await axios.post("http://localhost:5000/api/checkout", {amount});
+    const {
+      data: {key},
+    } = await axios.get("http://localhost:5000/api/getKey");
+
+    const options = {
+      key: key,
+      amount: amount,
+      currency: "INR",
+      name: "ClickNShop",
+      description: "Your Order from ClickNShop",
+      image:
+        "https://img.atom.com/story_images/visual_images/1700817213-ClicknShop.png?class=show",
+      order_id: order.id,
+      callback_url: "http://localhost:5000/api/verification",
+      prefill: {
+        name: "Aryan Manjarekar",
+        email: "aryan.manjarekar.22@gmail.com",
+        contact: "7718070610",
+      },
+      notes: {
+        address: "ClickNShop Corporate Office",
+      },
+      theme: {
+        color: "#282c34",
+      },
+    };
+
+    const razor = new window.Razorpay(options);
+    razor.open();
+  };
 
   return (
     <section className="bg-white py-8 antialiased md:py-16">
@@ -97,12 +133,14 @@ function CartComponent() {
                 </dl>
               </div>
 
-              <a
-                href="#"
+              <button
+                onClick={() => {
+                  checkout(total);
+                }}
                 className="flex w-full items-center justify-center rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
               >
                 Proceed to Checkout
-              </a>
+              </button>
 
               <div className="flex items-center justify-center gap-2">
                 <span className="text-sm font-normal text-center text-gray-500">
