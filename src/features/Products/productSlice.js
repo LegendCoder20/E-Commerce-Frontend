@@ -8,14 +8,16 @@ const initialState = {
   isError: false,
   isLoading: false,
   message: "",
+  totalPages: 1,
 };
 
 // 🟨GET PRODUCTS🟨//
 export const getAllProducts = createAsyncThunk(
   "/products/all",
-  async (_, thunkAPI) => {
+  async (page, thunkAPI) => {
     try {
-      return await productService.getProducts();
+      const data = await productService.getProducts(page);
+      return data;
     } catch (err) {
       const message =
         err.response && err.response.data && err.response.data.message
@@ -52,7 +54,10 @@ const handlePending = (state) => {
 const handleFulfilled = (state, action, field) => {
   state.isLoading = false;
   state.isSuccess = true;
-  if (field) {
+  if (field === "products") {
+    state[field] = action.payload.products;
+    state.totalPages = action.payload.totalPages;
+  } else {
     state[field] = action.payload;
   }
 };
