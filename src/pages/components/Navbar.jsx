@@ -64,7 +64,11 @@ function Navbar() {
       dispatch(logoutUser());
       window.location.reload();
     } else if (sellerRoutes.includes(location.pathname)) {
-      dispatch(logoutSeller()).then(() => nav("/"));
+      dispatch(logoutSeller())
+        .unwrap()
+        .then(() => {
+          nav("/");
+        });
     }
   };
 

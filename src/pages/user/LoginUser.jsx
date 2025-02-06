@@ -48,8 +48,12 @@ function LoginUser() {
       email,
       password,
     };
-    dispatch(login(userData));
-    nav("/");
+
+    dispatch(login(userData))
+      .unwrap()
+      .then(() => {
+        nav("/");
+      });
     console.log("User Logged In Successfully");
   };
 

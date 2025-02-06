@@ -51,8 +51,11 @@ function LoginSeller() {
       password,
     };
 
-    dispatch(login(sellerData));
-    nav("/sellerDashboard");
+    dispatch(login(sellerData))
+      .unwrap()
+      .then(() => {
+        nav("/sellerDashboard");
+      });
     console.log("Seller Logged In Successfully");
   };
 
