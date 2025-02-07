@@ -8,7 +8,7 @@ const ProductCard = React.memo(({product}) => {
 
   return (
     <>
-      <div className="relative group w-full max-w-xs mx-auto mb-4 ">
+      <div className="relative group w-full max-w-xs mx-auto mb-6 md:hover:opacity-85">
         {/* Product Image */}
         <Link to={`/productDetails/${product._id}`}>
           <img
@@ -79,7 +79,6 @@ const ProductCard = React.memo(({product}) => {
                   {product.name}
                 </h2>
                 <p className="mt-2 text-lg text-gray-900">
-                  {" "}
                   <span className="font-bold">₹</span>
                   {product.price}
                 </p>
@@ -89,7 +88,9 @@ const ProductCard = React.memo(({product}) => {
                     : "Seller not available"}
                 </p>
 
-                <p className="text-gray-600 mt-2">{product.category}</p>
+                <p className="text-gray-600 mt-2 inline-block bg-gradient-to-r from-yellow-400 to-yellow-500 text-black text-sm font-bold px-5 py-2 rounded-full mb-6 tracking-wider uppercase ">
+                  {product.category}
+                </p>
                 <p className="mt-4 text-sm sm:text-lg text-gray-700">
                   {product.description}
                 </p>

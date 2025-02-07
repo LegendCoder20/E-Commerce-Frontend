@@ -4,6 +4,7 @@ import productService from "./productService";
 const initialState = {
   products: [],
   product: {},
+  filteredProducts: [],
   isSuccess: false,
   isError: false,
   isLoading: false,
@@ -48,6 +49,23 @@ export const getProductDetails = createAsyncThunk(
   }
 );
 
+// 🟨 SEARCH PRODUCTS (IGNORES PAGINATION) 🟨 //
+export const searchProducts = createAsyncThunk(
+  "/products/search",
+  async (searchTerm, thunkAPI) => {
+    try {
+      const data = await productService.getProducts(1, 1000, searchTerm); // Fetch all matching products
+      return data.products;
+    } catch (err) {
+      const message =
+        err.response?.data?.message ||
+        err.message ||
+        "Error searching products";
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 //// REDUX ////
 const handlePending = (state) => {
   state.isLoading = true;
@@ -83,12 +101,14 @@ export const productsSlice = createSlice({
       state.isError = false;
       state.isLoading = false;
       state.message = "";
+      state.filteredProducts = [];
     },
   },
   extraReducers: (builder) => {
     const asyncActions = [
       {action: getAllProducts, field: "products"},
       {action: getProductDetails, field: "product"},
+      {action: searchProducts, field: "filteredProducts"},
     ];
 
     asyncActions.forEach(({action, field}) => {

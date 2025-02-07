@@ -61,8 +61,8 @@ function ProductDetail() {
               <h2 className="text-2xl font-bold text-gray-800">
                 {product.name}
               </h2>
-              <p className="text-gray-600 mt-2">
-                <span className="font-medium">Category -</span>
+              <p className="text-gray-600 mt-4 inline-block bg-gradient-to-r from-yellow-400 to-yellow-500  text-xs  font-bold px-2 py-2 rounded-full mb-2 tracking-wider uppercase ">
+                <span className=" font-bold">Category - </span>
                 {product.category}
               </p>
               <div className="flex items-center mt-4">
@@ -94,7 +94,7 @@ function ProductDetail() {
                   Add to Cart
                 </button>
                 <p className="text-black mt-14 h-7 bg-orange-100 w-56 text-center text-lg font-medium rounded-md sm:mx-0 mx-auto">
-                  Product in Stock - {product.quantity}
+                  Products in Stock - {product.quantity}
                 </p>
               </div>
             </div>
