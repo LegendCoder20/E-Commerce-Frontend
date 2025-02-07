@@ -38,7 +38,7 @@ function SellerDashboard() {
             type="button"
             className="focus:outline-none text-white bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 font-medium rounded-lg text-sm px-5 py-2.5 mb-4 transition-all duration-300"
           >
-            Add Recipe
+            Add Product
           </button>
         </Link>
       </div>

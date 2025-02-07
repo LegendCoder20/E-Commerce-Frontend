@@ -12,12 +12,12 @@ const ProductCardsContainer = () => {
   const [page, setPage] = useState(1);
   const [items, setItems] = useState([]);
   const [searchInput, setSearchInput] = useState("");
+  const [debouncing, setDebouncing] = useState("");
 
   const hSearchInput = (e) => {
     const value = e.target.value;
     setSearchInput(value);
   };
-  console.log("Search Input:", searchInput);
 
   const dispatch = useDispatch();
   const {products, totalPages, limit, isLoading, isError, message} =
@@ -33,11 +33,21 @@ const ProductCardsContainer = () => {
     if (products.length > 0) {
       setItems(products.slice(0, limit));
     }
-  }, []);
+  }, [products, limit]);
 
-  const filteredProducts = searchInput
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncing(searchInput);
+    }, 1000);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchInput]);
+
+  const filteredProducts = debouncing
     ? products.filter((product) =>
-        product.name.toLowerCase().includes(searchInput.toLowerCase())
+        product.name.toLowerCase().includes(debouncing.toLowerCase())
       )
     : products;
 

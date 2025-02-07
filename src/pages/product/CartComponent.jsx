@@ -53,10 +53,21 @@ function CartComponent() {
     ? cart.reduce((acc, cartItems) => acc + cartItems.products.length, 0)
     : 0;
 
+  const token = localStorage.getItem("User");
+
   const checkout = async (amount) => {
     const {
       data: {order},
-    } = await axios.post("http://localhost:5000/api/checkout", {amount});
+    } = await axios.post(
+      "http://localhost:5000/api/checkout",
+
+      {amount},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     const {
       data: {key},
     } = await axios.get("http://localhost:5000/api/getKey");
