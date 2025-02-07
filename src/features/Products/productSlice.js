@@ -9,6 +9,7 @@ const initialState = {
   isLoading: false,
   message: "",
   totalPages: 1,
+  limit: 1,
 };
 
 // 🟨GET PRODUCTS🟨//
@@ -17,6 +18,7 @@ export const getAllProducts = createAsyncThunk(
   async (page, thunkAPI) => {
     try {
       const data = await productService.getProducts(page);
+
       return data;
     } catch (err) {
       const message =
@@ -57,6 +59,7 @@ const handleFulfilled = (state, action, field) => {
   if (field === "products") {
     state[field] = action.payload.products;
     state.totalPages = action.payload.totalPages;
+    state.limit = action.payload.limit;
   } else {
     state[field] = action.payload;
   }
