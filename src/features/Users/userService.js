@@ -26,7 +26,7 @@ const login = async (userData) => {
 const getUser = async () => {
   const token = localStorage.getItem("User");
 
-  if (!token) return "Guest User"; // ✅ Avoid unnecessary API calls
+  if (!token) return "Guest User";
 
   try {
     const response = await axios.get(`${API_URL}/getuser`, {
@@ -37,7 +37,7 @@ const getUser = async () => {
     return response.data.user;
   } catch (error) {
     console.error("Error fetching user:", error);
-    return "Guest User"; // ✅ Prevent crashing
+    return "Guest User";
   }
 };
 

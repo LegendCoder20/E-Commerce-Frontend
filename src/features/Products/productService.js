@@ -17,6 +17,7 @@ const getProducts = async (page, limit = 8) => {
 //🟨GET ALL PRODUCT DETAILS🟨//
 const getProductDetails = async (id) => {
   const response = await axios.get(`${API_URL}/product/${id}`);
+
   return response.data.product;
 };
 

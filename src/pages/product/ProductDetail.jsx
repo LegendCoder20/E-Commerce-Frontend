@@ -58,16 +58,24 @@ function ProductDetail() {
 
             {/* Product Details */}
             <div className="w-full md:w-1/2">
-              <h2 className="text-2xl font-bold text-gray-800">
+              <h2 className="text-3xl font-bold text-gray-800">
                 {product.name}
               </h2>
-              <p className="text-gray-600 mt-4 inline-block bg-gradient-to-r from-yellow-400 to-yellow-500  text-xs  font-bold px-2 py-2 rounded-full mb-2 tracking-wider uppercase ">
+
+              <br />
+              <p className="text-gray-600 text-sm inline-block bg-gradient-to-r from-yellow-400 to-yellow-500  font-bold px-2 py-1 rounded-full tracking-wider ">
+                <span className=" font-bold">Seller - </span>
+                {product?.seller?.fullName || ""}
+              </p>
+              <p className="text-base mt-4   ">
                 <span className=" font-bold">Category - </span>
                 {product.category}
               </p>
               <div className="flex items-center mt-4">
                 <span className="text-yellow-500 text-xl">★ ★ ★ ★ ☆</span>
-                <span className="ml-2 text-gray-600">(120 reviews)</span>
+                <span className="ml-2 text-gray-600">
+                  {Math.floor(Math.random() * 101)} Reviews
+                </span>
               </div>
               <p className="text-gray-800 text-xl font-semibold mt-4">
                 ₹{product.price}

@@ -31,6 +31,8 @@ import ContactMe from "./pages/components/ContactMe";
 import PaymentSuccess from "./pages/payment/PaymentSuccess";
 import PaymentFailed from "./pages/payment/PaymentFailed";
 
+import AdminPage from "./pages/admin/AdminPage";
+
 function App() {
   return (
     <Router>
@@ -82,6 +84,9 @@ function App() {
         {/*🟠OTHER ROUTES🟠*/}
         <Route path="/aboutme" element={<AboutMe />}></Route>
         <Route path="/contactme" element={<ContactMe />}></Route>
+
+        {/* delete this */}
+        <Route path="/adminPanel" element={<AdminPage></AdminPage>}></Route>
 
         {/*🔴WRONG URL🔴*/}
         <Route path="*" element={<NotFoundPage />}></Route>
