@@ -12,6 +12,7 @@ import HomePage from "./pages/components/HomePage";
 import ProductDetail from "./pages/product/ProductDetail";
 import SellerDashboard from "./pages/seller/SellerDashboard";
 import CartComponent from "./pages/product/CartComponent";
+import AllData from "./pages/admin/AllData";
 
 // Importing Forms
 import RegisterUser from "./pages/user/RegisterUser";
@@ -30,8 +31,6 @@ import NotFoundPage from "./pages/components/NotFoundPage";
 import ContactMe from "./pages/components/ContactMe";
 import PaymentSuccess from "./pages/payment/PaymentSuccess";
 import PaymentFailed from "./pages/payment/PaymentFailed";
-
-import AdminPage from "./pages/admin/AdminPage";
 
 function App() {
   return (
@@ -81,12 +80,14 @@ function App() {
 
         <Route path="/users/paymentFailed" element={<PaymentFailed />}></Route>
 
+        {/*🟡Admin Page 🟡*/}
+        <Route path="/allData/:value" element={<AllData />}></Route>
+
         {/*🟠OTHER ROUTES🟠*/}
         <Route path="/aboutme" element={<AboutMe />}></Route>
         <Route path="/contactme" element={<ContactMe />}></Route>
 
         {/* delete this */}
-        <Route path="/adminPanel" element={<AdminPage></AdminPage>}></Route>
 
         {/*🔴WRONG URL🔴*/}
         <Route path="*" element={<NotFoundPage />}></Route>
