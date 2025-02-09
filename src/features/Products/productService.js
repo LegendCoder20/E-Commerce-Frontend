@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/users/products";
+const API_URL =
+  "https://e-commerce-clicknshop-backend.onrender.com/api/users/products";
 
 //🟨GET ALL PRODUCTS🟨//
 const getProducts = async (page, limit = 8) => {
