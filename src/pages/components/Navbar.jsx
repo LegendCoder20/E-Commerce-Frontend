@@ -90,12 +90,14 @@ function Navbar() {
   const logOut = () => {
     if (userRoutes.includes(location.pathname)) {
       dispatch(logoutUser());
+
       window.location.reload();
     } else if (sellerRoutes.includes(location.pathname)) {
       dispatch(logoutSeller())
         .unwrap()
         .then(() => {
-          nav("/");
+          dispatch(reset());
+          window.location.href = "/";
         });
     }
   };
@@ -133,6 +135,7 @@ function Navbar() {
               <div className="absolute right-0 w-48 bg-white rounded-lg shadow-lg dark:bg-gray-700 z-20 mt-72">
                 <div className="text-base list-none divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
                   <ul>
+                    {/* Put  user.name instead of user*/}
                     {user.name ? (
                       <Link
                         to="/"
@@ -180,6 +183,7 @@ function Navbar() {
                   </ul>
 
                   <ul className="py-2">
+                    {/* Put  user.name instead of user*/}
                     {user.name && (
                       <li>
                         <Link

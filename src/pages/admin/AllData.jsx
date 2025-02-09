@@ -179,12 +179,16 @@ function AllData() {
                               <>
                                 <td className="px-4 py-3">
                                   <span className="  font-medium px-2 py-0.5 rounded dark:bg-primary-900 text-black ">
-                                    {item.email}
+                                    <a href={`mailto:${item.email}`}>
+                                      {item.email}
+                                    </a>
                                   </span>
                                 </td>
                                 <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap ">
                                   <div className="flex items-center">
-                                    {item.phone}
+                                    <a href={`https://wa.me/${item.phone}`}>
+                                      {item.phone}
+                                    </a>
                                   </div>
                                 </td>
                                 <td className="px-4 py-3 text-black">
@@ -198,12 +202,16 @@ function AllData() {
                               <>
                                 <td className="px-4 py-3">
                                   <span className="  font-medium px-2 py-0.5 rounded dark:bg-primary-900 text-black ">
-                                    {item.businessEmail}
+                                    <a href={`mailto:${item.businessEmail}`}>
+                                      {item.businessEmail}
+                                    </a>
                                   </span>
                                 </td>
                                 <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap ">
                                   <div className="flex items-center">
-                                    {item.phone}
+                                    <a href={`https://wa.me/${item.phone}`}>
+                                      {item.phone}
+                                    </a>
                                   </div>
                                 </td>
                                 <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap ">
