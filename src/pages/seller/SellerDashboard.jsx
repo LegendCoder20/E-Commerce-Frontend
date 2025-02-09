@@ -3,8 +3,9 @@ import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 
 ////////////////////////////////////////
-import {getAllSellerProducts} from "../../features/Sellers/sellerSlice";
+import {getAllSellerProducts, reset} from "../../features/Sellers/sellerSlice";
 import SellerCard from "./SellerCard";
+import Loader from "../small components/Loader";
 
 function SellerDashboard() {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ function SellerDashboard() {
   }, [products]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader></Loader>;
   }
 
   return (
@@ -73,6 +74,9 @@ function SellerDashboard() {
                     </th>
                     <th scope="col" className="p-4">
                       Quantity
+                    </th>
+                    <th scope="col" className="p-4">
+                      Price
                     </th>
                   </tr>
                 </thead>

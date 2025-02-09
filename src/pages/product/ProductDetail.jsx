@@ -5,7 +5,7 @@ import {toast} from "react-toastify";
 
 /////////////////////////////////////////////
 import QuantityComponent from "../small components/QuantityComponent";
-import {getProductDetails} from "../../features/products/productSlice";
+import {getProductDetails, reset} from "../../features/products/productSlice";
 import {addToCart} from "../../features/Users/userSlice";
 
 function ProductDetail() {
@@ -18,10 +18,11 @@ function ProductDetail() {
   );
 
   useEffect(() => {
+    dispatch(reset());
     if (quantity === 1) {
       dispatch(getProductDetails(id));
     }
-  }, [dispatch, id, quantity]);
+  }, [dispatch, id]);
 
   const maxStock = product.quantity;
 
@@ -31,6 +32,7 @@ function ProductDetail() {
       product_id: id,
       quantity,
     };
+    const user = localStorage.getItem("User");
 
     dispatch(addToCart(cartData));
     toast.success("Product Added to Cart Successfully");

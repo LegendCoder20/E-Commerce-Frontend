@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import WebsiteMainLogo from "../../../public/Website Main Logo.png";
 import {getProductDetails} from "../../features/products/productSlice";
 import {updateProduct} from "../../features/Sellers/sellerSlice";
+import Loader from "../small components/Loader";
 
 function UpdateProduct() {
   const nav = useNavigate();
@@ -59,6 +60,10 @@ function UpdateProduct() {
 
     nav("/sellerDashboard");
   };
+
+  if (isLoading) {
+    return <Loader></Loader>;
+  }
 
   return (
     <React.Fragment>

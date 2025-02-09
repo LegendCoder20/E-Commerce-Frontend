@@ -97,6 +97,7 @@ export const productsSlice = createSlice({
   initialState,
   reducers: {
     reset: (state) => {
+      state.product = {};
       state.isSuccess = false;
       state.isError = false;
       state.isLoading = false;

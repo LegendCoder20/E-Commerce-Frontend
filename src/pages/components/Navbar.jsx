@@ -33,12 +33,16 @@ function Navbar() {
   ];
 
   useEffect(() => {
-    dispatch(getUser());
-    dispatch(getSeller());
+    const fetchData = async () => {
+      await dispatch(getUser());
+      await dispatch(getSeller());
 
-    if (!sellerRoutes.includes(location.pathname)) {
-      dispatch(getCart());
-    }
+      if (!sellerRoutes.includes(location.pathname)) {
+        await dispatch(getCart());
+      }
+    };
+
+    fetchData();
   }, [dispatch, location]);
 
   useEffect(() => {
@@ -69,15 +73,15 @@ function Navbar() {
   }, [user, seller, location.pathname]);
 
   useEffect(() => {
-    // Update cart product length when the cart changes
-    const productLength = Array.isArray(cart)
-      ? cart.reduce(
-          (total, cartItem) => total + (cartItem?.products?.length || 0),
-          0
-        )
-      : 0;
+    if (!cart || !Array.isArray(cart)) return;
+
+    const productLength = cart.reduce(
+      (total, cartItem) => total + (cartItem?.products?.length || 0),
+      0
+    );
+
     setCartProductLength(productLength);
-  }, [cart]); // This will run whenever the cart changes
+  }, [cart]);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);

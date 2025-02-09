@@ -76,6 +76,7 @@ const SellerCard = React.memo(({product}) => {
             {Math.floor(Math.random() * 1001)}
           </td>
           <td className="px-10 py-3 text-black">{product.quantity}</td>
+          <td className="px-4 py-3 text-black">{product.price}</td>
           <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
             <div className="flex items-center space-x-4">
               <Link

@@ -3,13 +3,14 @@ import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 
 ////////////////////////
-import {deleteProduct} from "../../features/Users/userSlice";
+import {deleteProduct, reset} from "../../features/Users/userSlice";
 
 const Cart = React.memo(({product}) => {
   const dispatch = useDispatch();
-  const deleteCartProduct = (e) => {
-    dispatch(deleteProduct(product.product_id._id));
-
+  const deleteCartProduct = async (e) => {
+    e.preventDefault();
+    await dispatch(deleteProduct(product.product_id._id));
+    dispatch(reset());
     window.location.reload();
   };
 
