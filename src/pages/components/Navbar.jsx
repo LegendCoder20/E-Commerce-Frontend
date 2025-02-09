@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
+import {toast} from "react-toastify";
 
 /////////////////////////////
 import HeaderTitle from "../small components/HeaderTitle";
@@ -39,6 +40,33 @@ function Navbar() {
       dispatch(getCart());
     }
   }, [dispatch, location]);
+
+  useEffect(() => {
+    const userWelcome = sessionStorage.getItem("userWelcome");
+    const sellerWelcome = sessionStorage.getItem("sellerWelcome");
+
+    if (user?.name && !userWelcome && userRoutes.includes(location.pathname)) {
+      toast.info(`Welcome, ${user.name}!`, {
+        position: "top-right",
+        theme: "colored",
+        style: {marginTop: "70px"},
+      });
+      sessionStorage.setItem("userWelcome", "true");
+    }
+
+    if (
+      seller?.fullName &&
+      !sellerWelcome &&
+      sellerRoutes.includes(location.pathname)
+    ) {
+      toast.info(`Welcome, ${seller.fullName}!`, {
+        position: "top-right",
+        theme: "colored",
+        style: {marginTop: "70px"},
+      });
+      sessionStorage.setItem("sellerWelcome", "true");
+    }
+  }, [user, seller, location.pathname]);
 
   useEffect(() => {
     // Update cart product length when the cart changes
@@ -245,7 +273,7 @@ function Navbar() {
               </li>
               <li>
                 <Link
-                  to="/"
+                  to=""
                   className="relative block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-teal-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 md:dark:text-teal-300 md:text-lg after:content-[''] after:block after:h-1 after:bg-teal-400 after:absolute after:bottom-0 after:left-0 after:w-full after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100"
                 >
                   Pricing

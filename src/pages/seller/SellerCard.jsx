@@ -27,12 +27,12 @@ const SellerCard = React.memo(({product}) => {
   return (
     <>
       <tbody>
-        <tr className="border-b dark:border-gray-300 hover:bg-white">
+        <tr className="border-b dark:border-gray-300 hover:bg-white sm:transition-transform sm:duration-300 sm:hover:scale-[0.98]">
           <th
             scope="row"
             className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap  "
           >
-            <div className="flex items-center mr-3">
+            <div className="flex items-center mr-3 ">
               <img
                 src={product.image && product.image.url}
                 alt={product.name}
@@ -41,13 +41,13 @@ const SellerCard = React.memo(({product}) => {
               {product.name}
             </div>
           </th>
-          <td className="px-4 py-3">
+          <td className="  py-3  px-3">
             <span className="bg-blue-400 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 text-black ">
               {product.category}
             </span>
           </td>
 
-          <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+          <td className=" py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white ">
             <div className="flex items-center">
               {(() => {
                 const stars = Math.floor(Math.random() * 5) + 1;
@@ -72,10 +72,10 @@ const SellerCard = React.memo(({product}) => {
             </div>
           </td>
 
-          <td className="px-4 py-3 text-black">
+          <td className="px-5 py-3 text-black">
             {Math.floor(Math.random() * 1001)}
           </td>
-          <td className="px-4 py-3 text-black">{product.quantity}</td>
+          <td className="px-10 py-3 text-black">{product.quantity}</td>
           <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
             <div className="flex items-center space-x-4">
               <Link

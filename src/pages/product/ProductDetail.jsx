@@ -47,12 +47,14 @@ function ProductDetail() {
           <div className="flex flex-col md:flex-row gap-8">
             {/* Image Slider */}
             <div className="w-full md:w-1/2">
-              <div className="overflow-hidden rounded-lg">
-                <img
-                  src={product.image && product.image.url}
-                  alt={product.name}
-                  className="w-full h-auto object-cover"
-                />
+              <div className="overflow-hidden rounded-lg relative transform transition-transform duration-500 group perspective-[1200px]">
+                <div className="w-full h-auto object-cover transform group-hover:rotate-x-[15deg] group-hover:-rotate-y-[10deg] group-hover:scale-125 transition-transform duration-500 shadow-2xl">
+                  <img
+                    src={product.image && product.image.url}
+                    alt={product.name}
+                    className="w-full h-auto object-cover rounded-lg"
+                  />
+                </div>
               </div>
             </div>
 

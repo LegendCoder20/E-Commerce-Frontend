@@ -8,7 +8,7 @@ const ProductCard = React.memo(({product}) => {
 
   return (
     <>
-      <div className="relative group w-full max-w-xs mx-auto mb-6 md:hover:opacity-85">
+      <div className="relative group w-full max-w-xs mx-auto mb-6 md:hover:opacity-85 transition-transform duration-100 transform hover:scale-105 ">
         {/* Product Image */}
         <Link to={`/productDetails/${product._id}`}>
           <img
@@ -68,30 +68,36 @@ const ProductCard = React.memo(({product}) => {
 
             {/* Product Details */}
             <div className="flex flex-col sm:flex-row h-auto sm:h-[30rem]">
-              <img
-                src={product.image && product.image.url}
-                alt={product.name}
-                className="w-full sm:max-w-sm object-contain rounded-lg bg-gray-100"
-                loading="lazy"
-              />
+              {/* 3D Hover Effect Wrapper */}
+              <div className="overflow-hidden rounded-lg relative transform transition-transform duration-500 group perspective-[800px]">
+                <div className="w-full sm:max-w-sm object-contain transform group-hover:rotate-x-[15deg] group-hover:-rotate-y-[10deg] group-hover:scale-125 transition-transform duration-500 shadow-2xl">
+                  <img
+                    src={product.image && product.image.url}
+                    alt={product.name}
+                    className="w-full h-auto object-cover rounded-lg bg-gray-100"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
               <div className="mt-4 sm:mt-0 sm:ml-6">
                 <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
                   {product.name}
                 </h2>
-                <p className="mt-2 text-lg text-gray-900">
+                <p className="mt-3 text-lg text-gray-900 mb-2 font-semibold">
                   <span className="font-bold">₹</span>
                   {product.price}
                 </p>
-                <p className="mt-2 text-lg text-gray-900">
+                <p className="mt-2 text-base text-gray-900 inline-block bg-gradient-to-r from-yellow-400 to-yellow-500 text-black text-sm font-bold px-5 py-2 rounded-full mb-4 tracking-wider">
+                  Seller -{" "}
                   {product.seller && product.seller.fullName
                     ? product.seller.fullName
                     : "Seller not available"}
                 </p>
 
-                <p className="text-gray-600 mt-2 inline-block bg-gradient-to-r from-yellow-400 to-yellow-500 text-black text-sm font-bold px-5 py-2 rounded-full mb-6 tracking-wider uppercase ">
-                  {product.category}
+                <p className=" mt-1  text-base font-semibold  py-1  mb-4 ">
+                  Category - {product.category}
                 </p>
-                <p className="mt-4 text-sm sm:text-lg text-gray-700">
+                <p className="mt-2 text-xs sm:text-base text-gray-700">
                   {product.description}
                 </p>
               </div>
