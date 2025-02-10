@@ -13,6 +13,7 @@ import ProductDetail from "./pages/product/ProductDetail";
 import SellerDashboard from "./pages/seller/SellerDashboard";
 import CartComponent from "./pages/product/CartComponent";
 import AllData from "./pages/admin/AllData";
+import AdminPage from "./pages/admin/AdminPage";
 
 // Importing Forms
 import RegisterUser from "./pages/user/RegisterUser";
@@ -82,6 +83,7 @@ function App() {
 
         {/*🟡Admin Page 🟡*/}
         <Route path="/allData/:value" element={<AllData />}></Route>
+        <Route path="/admin" element={<AdminPage></AdminPage>}></Route>
 
         {/*🟠OTHER ROUTES🟠*/}
         <Route path="/aboutme" element={<AboutMe />}></Route>

@@ -1,4 +1,6 @@
 import React from "react";
+import {Link} from "react-router-dom";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 function Footer() {
   return (
@@ -38,7 +40,35 @@ function Footer() {
                 +91 7718070610
               </a>
             </p>
+            <p>
+              <Link
+                to="/admin"
+                target="_blank"
+                className="text-gray-800 cursor-default"
+              >
+                Admin
+              </Link>
+            </p>
             <div className="flex space-x-4 mt-4">
+              <a
+                href="https://www.linkedin.com/in/aryan-manjarekar-/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-2xl hover:text-blue-700"
+                aria-label="Instagram"
+              >
+                <i class="fa-brands fa-linkedin-in"></i>
+              </a>
+              <a
+                href="https://www.instagram.com/legend_martial.arts/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-2xl hover:text-pink-500"
+                aria-label="Instagram"
+              >
+                <i className="fab fa-instagram"></i>
+              </a>
+
               <a
                 href="https://facebook.com"
                 target="_blank"
@@ -56,15 +86,6 @@ function Footer() {
                 aria-label="Twitter"
               >
                 <i className="fab fa-twitter"></i>
-              </a>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-2xl hover:text-pink-500"
-                aria-label="Instagram"
-              >
-                <i className="fab fa-instagram"></i>
               </a>
             </div>
           </div>

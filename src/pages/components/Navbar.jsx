@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {toast} from "react-toastify";
 
@@ -13,7 +13,6 @@ function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [cartProductLength, setCartProductLength] = useState(0); // state to track cart length
-  const nav = useNavigate();
 
   const dispatch = useDispatch();
 

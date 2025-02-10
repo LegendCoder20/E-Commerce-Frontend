@@ -9,6 +9,7 @@ const initialState = {
   isError: false,
   isLoading: false,
   message: "",
+  isAuthenticated: true,
 };
 
 //🟨GET ALL USERS🟨//
@@ -96,6 +97,9 @@ export const adminSlice = createSlice({
       state.isError = false;
       state.message = "";
     },
+    setAuthenticated: (state, action) => {
+      state.isAuthenticated = action.payload;
+    },
   },
   extraReducers: (builder) => {
     const asyncActions = [
@@ -117,5 +121,5 @@ export const adminSlice = createSlice({
   },
 });
 
-export const {reset} = adminSlice.actions;
+export const {reset, setAuthenticated} = adminSlice.actions;
 export default adminSlice.reducer;
