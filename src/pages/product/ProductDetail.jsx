@@ -34,12 +34,15 @@ function ProductDetail() {
     };
     const user = localStorage.getItem("User");
 
-    dispatch(addToCart(cartData));
-    toast.success("Product Added to Cart Successfully");
-
-    setTimeout(() => {
-      nav("/");
-    }, 1000);
+    if (user) {
+      dispatch(addToCart(cartData));
+      toast.success("Product Added to Cart Successfully");
+      setTimeout(() => {
+        nav("/");
+      }, 1000);
+    } else {
+      toast.info("Please Login to Enable this Option.");
+    }
   };
 
   return (
