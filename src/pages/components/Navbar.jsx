@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Link, useLocation} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {toast} from "react-toastify";
 
@@ -13,6 +13,7 @@ function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [cartProductLength, setCartProductLength] = useState(0);
+  const nav = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -100,7 +101,7 @@ function Navbar() {
         .unwrap()
         .then(() => {
           dispatch(reset());
-          window.location.href = "/";
+          nav("/");
         });
     }
   };
