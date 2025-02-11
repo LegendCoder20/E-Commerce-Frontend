@@ -43,7 +43,7 @@ function Footer() {
             <p>
               <Link
                 to="/admin"
-                target="_blank"
+                // target="_blank"
                 className="text-gray-800 cursor-default"
               >
                 Admin
