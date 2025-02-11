@@ -5,7 +5,7 @@ import {toast} from "react-toastify";
 
 /////////////////////////////////////////////
 import QuantityComponent from "../small components/QuantityComponent";
-import {getProductDetails, reset} from "../../features/products/productSlice";
+import {getProductDetails, reset} from "../../features/Products/productSlice";
 import {addToCart} from "../../features/Users/userSlice";
 
 function ProductDetail() {
