@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 ///////////////////////////////////////
-import {getAllProducts} from "../../features/products/productSlice";
+import {getAllProducts} from "../../features/Products/productSlice";
 const ProductCard = lazy(() => import("./ProductCard"));
 import Loader from "../small components/Loader";
 

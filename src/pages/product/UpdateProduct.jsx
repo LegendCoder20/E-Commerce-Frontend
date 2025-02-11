@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 
 //////////////////////////////////////////
 import WebsiteMainLogo from "../../../public/Website Main Logo.png";
-import {getProductDetails} from "../../features/products/productSlice";
+import {getProductDetails} from "../../features/Products/productSlice";
 import {updateProduct} from "../../features/Sellers/sellerSlice";
 import Loader from "../small components/Loader";
 
