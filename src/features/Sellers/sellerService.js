@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const API_URL = "https://e-commerce-clicknshop-backend.onrender.com/api/seller";
+const API_URL = "https://clicknshop-backend.onrender.com/api/seller";
 const sellerAPI_URL =
-  "https://e-commerce-clicknshop-backend.onrender.com/api/sellers/products";
+  "https://clicknshop-backend.onrender.com/api/sellers/products";
 
 //🟨REGISTER SELLER FEATURE🟨//
 const register = async (sellerData) => {

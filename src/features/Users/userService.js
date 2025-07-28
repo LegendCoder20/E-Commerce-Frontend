@@ -1,8 +1,7 @@
 import axios from "axios";
 
-const API_URL = "https://e-commerce-clicknshop-backend.onrender.com/api/user";
-const CART_API_URL =
-  "https://e-commerce-clicknshop-backend.onrender.com/api/users/cart";
+const API_URL = "https://clicknshop-backend.onrender.com/api/user";
+const CART_API_URL = "https://clicknshop-backend.onrender.com/api/users/cart";
 
 //🟨REGISTER USER FEATURE🟨//
 

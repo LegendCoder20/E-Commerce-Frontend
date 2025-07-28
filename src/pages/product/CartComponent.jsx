@@ -59,7 +59,7 @@ function CartComponent() {
     const {
       data: {order},
     } = await axios.post(
-      "https://e-commerce-clicknshop-backend.onrender.com/api/checkout",
+      "https://clicknshop-backend.onrender.com/api/checkout",
 
       {amount},
       {
@@ -71,7 +71,7 @@ function CartComponent() {
     const {
       data: {key},
     } = await axios.get(
-      "https://e-commerce-clicknshop-backend.onrender.com/api/getKey"
+      "https://clicknshop-backend.onrender.com/api/getKey"
     );
 
     const options = {
@@ -84,7 +84,7 @@ function CartComponent() {
         "https://img.atom.com/story_images/visual_images/1700817213-ClicknShop.png?class=show",
       order_id: order.id,
       callback_url:
-        "https://e-commerce-clicknshop-backend.onrender.com/api/verification",
+        "https://clicknshop-backend.onrender.com/api/verification",
       prefill: {
         name: "Aryan Manjarekar",
         email: "aryan.manjarekar.22@gmail.com",
