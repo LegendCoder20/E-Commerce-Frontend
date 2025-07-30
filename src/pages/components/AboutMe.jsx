@@ -23,7 +23,7 @@ function AboutMe() {
                     href="https://github.com/LegendCoder20?tab=repositories"
                     className="text-blue-700 underline font-medium break-all"
                   >
-                    {/* https://github.com/LegendCoder20 */}
+                    https://github.com/LegendCoder20
                   </a>
                 </p>
                 <a
