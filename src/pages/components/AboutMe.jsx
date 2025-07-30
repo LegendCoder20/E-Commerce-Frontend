@@ -1,5 +1,5 @@
 import React from "react";
-import aryanPhoto from "../../../public/Website Owner Photo.png";
+import aryanPhoto from "../../../public/Website Owner Photo.jpg";
 
 function AboutMe() {
   return (
